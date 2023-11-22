@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="DiarioNadador/App.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/CalendarCell.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/Components/ActividadExpander.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/Components/ActividadHeader.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/Components/DeleteableExpander.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/Components/DeleteableExpander2.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/Components/MedidasControl.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/DiaEntrenamientoWindow.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/MainWindow.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/MedidasControl.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/UserControl1.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

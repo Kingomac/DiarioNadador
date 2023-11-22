@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:DiarioNadador.Components"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DiarioNadador.Components.MedidasControl">
+    <Grid ColumnDefinitions="Auto,5,*">
+        <Grid.Styles>
+            <Style Selector="Grid">
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+            </Style>
+            <Style Selector="Label">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style Selector="TextBox">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style Selector="NumericUpDown">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+        </Grid.Styles>
+        <Grid RowDefinitions="50,10,50,10,50">
+            <!-- Labels for Medidas -->
+            <Label Grid.Row="0" Target="PesoTxt">Peso</Label>
+            <Label Grid.Row="2" Target="CircunferenciaAbdominalTxt">Circunferencia abdominal</Label>
+            <Label Grid.Row="4" Target="NotasTxt">Notas</Label>
+        </Grid>
+        <Grid Grid.Column="2" RowDefinitions="50,10,50,10,200">
+            <!-- Textboxes for Medidas -->
+            <NumericUpDown Grid.Row="0" Name="PesoTxt" />
+            <NumericUpDown Grid.Row="2" Name="CircunferenciaAbdominalTxt" />
+            <TextBox Grid.Row="4" Name="NotasTxt" AcceptsReturn="True" TextWrapping="Wrap" />
+        </Grid>
+    </Grid>
+</UserControl>

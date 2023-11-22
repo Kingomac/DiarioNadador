@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:DiarioNadador.Components"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DiarioNadador.Components.ActividadExpander"
+             x:DataType="components:ActividadExpander">
+    <Grid RowDefinitions="*,*" Name="MainGrid">
+        <Grid Grid.Row="0" ColumnDefinitions="*,60,60,60">
+            <StackPanel>
+                <StackPanel.Styles>
+                    <Style Selector="TextBlock">
+                        <Setter Property="TextAlignment" Value="Center" />
+                    </Style>
+                    <Style Selector="Grid > TextBlock">
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="Foreground">
+                            <Setter.Value>
+                                <SolidColorBrush>
+                                    <SolidColorBrush.Color>
+                                        <Color>#2e2e2e</Color>
+                                    </SolidColorBrush.Color>
+                                </SolidColorBrush>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </StackPanel.Styles>
+                <TextBlock Text="{Binding Actividad.Circuito.Lugar}" FontSize="18" />
+                <Grid ColumnDefinitions="*,*">
+                    <TextBlock Name="DuracionTxt" />
+                    <TextBlock Text="{Binding Actividad.Distancia, StringFormat='{}{0} km'}" Grid.Column="1" />
+                </Grid>
+            </StackPanel>
+            <Button Grid.Column="1" VerticalAlignment="Center" Name="MapaBtn"
+                    Click="MapaBtn_OnClick">
+                Mapa
+            </Button>
+            <Button Grid.Column="2" VerticalAlignment="Center" Name="NotesBtn"
+                    Click="NotesBtn_OnClick">
+                Notas
+            </Button>
+            <Button Grid.Column="3" VerticalAlignment="Center" Name="DeleteBtn" Click="DeleteBtn_OnClick">Borrar</Button>
+        </Grid>
+        <TextBlock Margin="10" Grid.Row="1" IsVisible="False" Opacity="0" Name="NotasTxt"
+                   Text="{Binding Actividad.Notas}">
+            <TextBlock.Transitions>
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
+                </Transitions>
+            </TextBlock.Transitions>
+        </TextBlock>
+    </Grid>
+</UserControl>
