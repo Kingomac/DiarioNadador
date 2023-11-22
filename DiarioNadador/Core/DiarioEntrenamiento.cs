@@ -35,7 +35,16 @@ public class DiarioEntrenamiento : IDictionary<DateOnly, DiaEntrenamiento>
 
     public void CopyTo(KeyValuePair<DateOnly, DiaEntrenamiento>[] array, int arrayIndex)
     {
-        throw new NotImplementedException();
+        if (array == null) throw new ArgumentNullException(nameof(array), "El arreglo de destino no puede ser nulo.");
+
+        if (arrayIndex < 0 || arrayIndex >= array.Length)
+            throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Índice de arreglo no válido.");
+
+        if (array.Length - arrayIndex < _diasEntrenamiento.Count)
+            throw new ArgumentException(
+                "El arreglo de destino no es lo suficientemente grande para contener los elementos.", nameof(array));
+
+        foreach (var kvp in _diasEntrenamiento) array[arrayIndex++] = kvp;
     }
 
     public bool Remove(KeyValuePair<DateOnly, DiaEntrenamiento> item)
