@@ -1,5 +1,8 @@
+using System;
+
 namespace DiarioNadador.Core;
 
+[Serializable]
 public class Circuito
 {
     public const string EtqCircuito = "circuito";
@@ -15,6 +18,14 @@ public class Circuito
         Lugar = lugar;
         Notas = notas;
         UrlMapa = urlMapa;
+    }
+
+    public Circuito()
+    {
+        Distancia = 0;
+        Lugar = "";
+        Notas = "";
+        UrlMapa = "";
     }
 
     public double Distancia { get; set; }
