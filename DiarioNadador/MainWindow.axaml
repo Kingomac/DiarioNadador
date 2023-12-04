@@ -6,29 +6,88 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DiarioNadador.MainWindow"
         Title="DiarioNadador">
-    <Grid ColumnDefinitions="*,4,*">
-        <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0">
-            <TabControl VerticalAlignment="Stretch">
-                <TabItem Header="Actividades">
-                    <Grid RowDefinitions="*,50">
-                        <ScrollViewer>
-                            <ListBox Name="ListaActividades" />
-                        </ScrollViewer>
-                        <Button Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18">
-                            Añadir
-                        </Button>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Medidas">
-                    <components:MedidasControl Margin="10" Name="MedidasControl" />
-                </TabItem>
-            </TabControl>
-        </Panel>
-        <GridSplitter Background="Black" ResizeDirection="Columns" Grid.Column="1" />
-        <StackPanel Grid.Column="2">
-            <Calendar DisplayMode="Month" SelectionMode="SingleDate" Name="Calendar"
-                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged" />
-        </StackPanel>
-    </Grid>
+    <SplitView OpenPaneLength="250" DisplayMode="Inline" IsPaneOpen="True">
+        <SplitView.Pane>
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Padding="10 10 10 10" FontSize="24" FontWeight="SemiLight"
+                           TextAlignment="Center" Background="White" VerticalAlignment="Stretch"
+                           HorizontalAlignment="Stretch">
+                    Diario de nadador
+                </TextBlock>
+                <ListBox DockPanel.Dock="Bottom">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Height" Value="60" />
+                        </Style>
+                        <Style Selector="ListBoxItem > Grid > PathIcon">
+                            <Setter Property="Margin" Value="0 0 10 0" />
+                            <Setter Property="Height" Value="35" />
+                            <Setter Property="Width" Value="35" />
+                            <!--<Setter Property="Height" Value="Stretch" />-->
+                        </Style>
+                        <Style Selector="ListBoxItem > Grid > TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </ListBox.Styles>
+                    <ListBoxItem>
+                        <Grid ColumnDefinitions="60,*">
+                            <PathIcon Data="{StaticResource IconCircuito}" />
+                            <TextBlock Grid.Column="1">Circuitos</TextBlock>
+                        </Grid>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Grid ColumnDefinitions="60,*">
+                            <PathIcon Data="{StaticResource IconActividades}" />
+                            <TextBlock Grid.Column="1">Actividades</TextBlock>
+                        </Grid>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Grid ColumnDefinitions="60,*">
+                            <PathIcon Data="{StaticResource IconGraficaActividades}" />
+                            <TextBlock Grid.Column="1">Gráfico actividades</TextBlock>
+                        </Grid>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Grid ColumnDefinitions="60,*" Classes="separar_abajo">
+                            <PathIcon Data="{StaticResource IconGraficaMedidas}" />
+                            <TextBlock Grid.Column="1">Gráfico medidas</TextBlock>
+                        </Grid>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Grid ColumnDefinitions="60,*">
+                            <PathIcon Data="{StaticResource IconInformeAnual}" />
+                            <TextBlock Grid.Column="1">Informe anual</TextBlock>
+                        </Grid>
+                    </ListBoxItem>
+                </ListBox>
+            </DockPanel>
+        </SplitView.Pane>
+
+        <Grid ColumnDefinitions="*,4,*">
+            <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0">
+                <TabControl VerticalAlignment="Stretch">
+                    <TabItem Header="Actividades">
+                        <Grid RowDefinitions="*,50">
+                            <ScrollViewer>
+                                <ListBox Name="ListaActividades" />
+                            </ScrollViewer>
+                            <Button Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18">
+                                Añadir
+                            </Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Medidas">
+                        <components:MedidasControl Margin="10" Name="MedidasControl" />
+                    </TabItem>
+                </TabControl>
+            </Panel>
+            <GridSplitter Background="Black" ResizeDirection="Columns" Grid.Column="1" />
+            <StackPanel Grid.Column="2">
+                <Calendar DisplayMode="Month" SelectionMode="SingleDate" Name="Calendar"
+                          SelectedDatesChanged="Calendar_OnSelectedDatesChanged" />
+            </StackPanel>
+        </Grid>
+    </SplitView>
 </Window>

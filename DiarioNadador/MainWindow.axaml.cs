@@ -40,9 +40,9 @@ public partial class MainWindow : Window
             {
                 act1, act2
             },
-            new Medidas(70, 90, "estoy más bueno que un kinder bueno")
+            new Medidas(70, 90, "")
         ));
-        
+
 
         ListaActividades.ItemTemplate =
             new FuncDataTemplate<Actividad>((value, _) => new ActividadExpander { Actividad = value });
