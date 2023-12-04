@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Avalonia.Interactivity;
 using DiarioNadador.Components;
 using DiarioNadador.Core;
+using DiarioNadador.Core.XML;
 
 namespace DiarioNadador;
 
@@ -42,7 +44,6 @@ public partial class MainWindow : Window
             },
             new Medidas(70, 90, "estoy más bueno que un kinder bueno")
         ));
-        
 
         ListaActividades.ItemTemplate =
             new FuncDataTemplate<Actividad>((value, _) => new ActividadExpander { Actividad = value });
@@ -63,5 +64,16 @@ public partial class MainWindow : Window
             ListaActividades.ItemsSource = new List<Actividad>();
             MedidasControl.Medidas = new Medidas(0, 0, "");
         }
+    }
+
+    private void Button_OnClick(object? sender, RoutedEventArgs e)
+    {
+        XmlDiarioEntrenamiento.DiarioEntrenamientoToXml(diarioEntrenamiento);
+    }
+
+    private void Button_OnClick2(object? sender, RoutedEventArgs e)
+    {
+        var diario = XmlDiarioEntrenamiento.XmlToDiarioEntrenamiento();
+        foreach (var x in diario.Keys) Console.WriteLine(x);
     }
 }

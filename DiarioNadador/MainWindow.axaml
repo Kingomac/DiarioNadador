@@ -29,6 +29,8 @@
         <StackPanel Grid.Column="2">
             <Calendar DisplayMode="Month" SelectionMode="SingleDate" Name="Calendar"
                       SelectedDatesChanged="Calendar_OnSelectedDatesChanged" />
+            <Button Click="Button_OnClick">guardar</Button>
+            <Button Click="Button_OnClick2">cargar</Button>
         </StackPanel>
     </Grid>
 </Window>
