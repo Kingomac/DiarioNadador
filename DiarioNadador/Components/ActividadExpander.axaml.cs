@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -31,12 +30,12 @@ public partial class ActividadExpander : UserControl
             if (value is null) return;
             SetValue(ActividadProperty, value);
             DuracionTxt.Text = value.TiempoEmpleado.ToString(@"m\'ss\""");
-            MapaBtn.IsVisible = !string.IsNullOrEmpty(value.Circuito.UrlMapa);
-            NotesBtn.IsVisible = !string.IsNullOrEmpty(value.Notas);
+            /*MapaBtn.IsVisible = !string.IsNullOrEmpty(value.Circuito.UrlMapa);
+            NotesBtn.IsVisible = !string.IsNullOrEmpty(value.Notas);*/
         }
     }
 
-    public double NotesOpacity
+    /*public double NotesOpacity
     {
         get => NotasTxt.Opacity;
         set
@@ -54,7 +53,7 @@ public partial class ActividadExpander : UserControl
     private void DeleteBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         RaiseEvent(new RoutedEventArgs(DeleteEvent));
-    }
+    }*/
 
     public event EventHandler Delete
     {
@@ -62,8 +61,8 @@ public partial class ActividadExpander : UserControl
         remove => RemoveHandler(DeleteEvent, value);
     }
 
-    private void MapaBtn_OnClick(object? sender, RoutedEventArgs e)
+    /*private void MapaBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         Process.Start(new ProcessStartInfo(Actividad.Circuito.UrlMapa) { UseShellExecute = true });
-    }
+    }*/
 }

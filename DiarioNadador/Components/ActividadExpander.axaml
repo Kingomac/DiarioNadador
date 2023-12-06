@@ -6,7 +6,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DiarioNadador.Components.ActividadExpander"
              x:DataType="components:ActividadExpander">
-    <Grid RowDefinitions="*,*" Name="MainGrid">
+    <!--<Grid RowDefinitions="*,*" Name="MainGrid">
         <Grid Grid.Row="0" ColumnDefinitions="*,60,60,60">
             <StackPanel>
                 <StackPanel.Styles>
@@ -50,5 +50,38 @@
                 </Transitions>
             </TextBlock.Transitions>
         </TextBlock>
-    </Grid>
+    </Grid>-->
+
+    <Border BorderThickness="2" BorderBrush="LightGray" Margin="10" Padding="10">
+        <StackPanel>
+            <StackPanel.Styles>
+                <Style Selector="Expander">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                </Style>
+            </StackPanel.Styles>
+            <Grid ColumnDefinitions="*,*,40" Margin="0 0 0 10">
+                <Grid.Styles>
+                    <Style Selector="TextBlock">
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="TextAlignment" Value="Center" />
+                    </Style>
+                </Grid.Styles>
+                <TextBlock Grid.Column="0" Name="DuracionTxt" />
+                <TextBlock Grid.Column="1" Text="{Binding Actividad.Distancia, StringFormat='{}{0} km'}" />
+                <Button Grid.Column="2" Name="DeleteBtn">
+                    <PathIcon Data="{StaticResource IconBorrar}" />
+                </Button>
+            </Grid>
+            <Expander Header="Notas" Content="{Binding Actividad.Notas}" Margin="10" />
+            <Expander Header="Circuito" Margin="10">
+                <StackPanel>
+                    <UniformGrid>
+                        <TextBlock Text="{Binding Actividad.Circuito.Lugar}" />
+                        <TextBlock Text="{Binding Actividad.Circuito.Distancia}" />
+                    </UniformGrid>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+    </Border>
 </UserControl>
