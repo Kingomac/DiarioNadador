@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:DiarioNadador.Components"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DiarioNadador.ActividadesView"
+             Loaded="Control_OnLoaded">
+    <Grid ColumnDefinitions="*,4,*">
+        <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0">
+            <TabControl VerticalAlignment="Stretch">
+                <TabItem Header="Actividades">
+                    <Grid RowDefinitions="*,50">
+                        <ScrollViewer>
+                            <ListBox Name="ListaActividades" />
+                        </ScrollViewer>
+                        <Button Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18">
+                            Añadir
+                        </Button>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Medidas">
+                    <components:MedidasControl Margin="10" Name="MedidasControl" />
+                </TabItem>
+            </TabControl>
+        </Panel>
+        <GridSplitter Background="Black" ResizeDirection="Columns" Grid.Column="1" />
+        <StackPanel Grid.Column="2">
+            <Calendar DisplayMode="Month" SelectionMode="SingleDate" Name="Calendar"
+                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged" />
+        </StackPanel>
+    </Grid>
+</UserControl>

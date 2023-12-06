@@ -1,20 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Templates;
-using DiarioNadador.Components;
 using DiarioNadador.Core;
 
 namespace DiarioNadador;
 
 public partial class MainWindow : Window
 {
-    private readonly DiarioEntrenamiento diarioEntrenamiento = new();
+    private readonly DiarioEntrenamiento _diarioEntrenamiento = new();
 
     public MainWindow()
     {
         InitializeComponent();
+        Views = new ReadOnlyDictionary<string, UserControl>(new Dictionary<string, UserControl>
+        {
+            { nameof(MenuViewListActividades), new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento } }
+        });
 #if DEBUG
         this.AttachDevTools();
 #endif
@@ -35,33 +38,32 @@ public partial class MainWindow : Window
             "nunca corrí tan rápido como para escapar de Marín"
         );
 
-        diarioEntrenamiento.Add(date, new DiaEntrenamiento(
+        _diarioEntrenamiento.Add(date, new DiaEntrenamiento(
             new List<Actividad>
             {
                 act1, act2
             },
             new Medidas(70, 90, "")
         ));
-
-
-        ListaActividades.ItemTemplate =
-            new FuncDataTemplate<Actividad>((value, _) => new ActividadExpander { Actividad = value });
-        ListaActividades.ItemsSource = diarioEntrenamiento[date].Actividades;
-        MedidasControl.Medidas = diarioEntrenamiento[date].Medidas ?? new Medidas(0, 0, "");
     }
 
-    private void Calendar_OnSelectedDatesChanged(object? sender, SelectionChangedEventArgs e)
+    private ReadOnlyDictionary<string, UserControl> Views { get; }
+
+
+    private void MenuViewList_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        var date = Calendar.SelectedDates[0];
+        //TODO: Una vez que estén implementadas todas las vistas quitar la gestión de excepciones de aquí
         try
         {
-            ListaActividades.ItemsSource = diarioEntrenamiento[DateOnly.FromDateTime(date)].Actividades;
-            MedidasControl.Medidas = diarioEntrenamiento[DateOnly.FromDateTime(date)].Medidas ?? new Medidas(0, 0, "");
+            var newSelected = e.AddedItems[0] as ListBoxItem;
+            if (newSelected?.Name is null)
+                throw new NullReferenceException(
+                    $"Menú seleccionado no válido, comprueba que está en el diccionario {nameof(Views)} en {nameof(MainWindow)} y que tiene un Name asignado");
+            MainViewContent.Content = Views[newSelected.Name];
         }
-        catch (Exception _)
+        catch (Exception ex)
         {
-            ListaActividades.ItemsSource = new List<Actividad>();
-            MedidasControl.Medidas = new Medidas(0, 0, "");
+            Console.WriteLine("Error al cambiar de vista: " + ex.Message);
         }
     }
 }

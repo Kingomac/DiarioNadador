@@ -3,6 +3,7 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="DiarioNadador/ActividadesView.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/App.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/CalendarCell.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/Components/ActividadExpander.axaml" value="DiarioNadador/DiarioNadador.csproj" />
