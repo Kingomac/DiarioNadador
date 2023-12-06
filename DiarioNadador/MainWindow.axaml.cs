@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
+using Avalonia.Interactivity;
+using DiarioNadador.Components;
 using DiarioNadador.Core;
+using DiarioNadador.Core.XML;
 
 namespace DiarioNadador;
 
@@ -69,5 +73,16 @@ public partial class MainWindow : Window
         {
             Console.WriteLine("Error al cambiar de vista: " + ex.Message);
         }
+    }
+
+    private void Button_OnClick(object? sender, RoutedEventArgs e)
+    {
+        XmlDiarioEntrenamiento.DiarioEntrenamientoToXml(diarioEntrenamiento);
+    }
+
+    private void Button_OnClick2(object? sender, RoutedEventArgs e)
+    {
+        var diario = XmlDiarioEntrenamiento.XmlToDiarioEntrenamiento();
+        foreach (var x in diario.Keys) Console.WriteLine(x);
     }
 }
