@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Templates;
 using Avalonia.Interactivity;
-using DiarioNadador.Components;
 using DiarioNadador.Core;
 using DiarioNadador.Core.XML;
 
@@ -77,7 +75,7 @@ public partial class MainWindow : Window
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
-        XmlDiarioEntrenamiento.DiarioEntrenamientoToXml(diarioEntrenamiento);
+        XmlDiarioEntrenamiento.DiarioEntrenamientoToXml(_diarioEntrenamiento);
     }
 
     private void Button_OnClick2(object? sender, RoutedEventArgs e)
