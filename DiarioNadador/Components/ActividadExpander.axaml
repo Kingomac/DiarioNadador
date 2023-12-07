@@ -51,7 +51,7 @@
             </TextBlock.Transitions>
         </TextBlock>
     </Grid>-->
-
+    <!--
     <Border BorderThickness="2" BorderBrush="LightGray" Margin="10" Padding="10">
         <StackPanel>
             <StackPanel.Styles>
@@ -82,6 +82,64 @@
                     </UniformGrid>
                 </StackPanel>
             </Expander>
+        </StackPanel>
+    </Border>-->
+
+    <Border BorderThickness="2" BorderBrush="LightGray" Margin="10" Padding="10">
+        <StackPanel>
+            <StackPanel.Styles>
+                <Style Selector="Expander">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                </Style>
+            </StackPanel.Styles>
+            <Grid ColumnDefinitions="*,*,80" Margin="0 0 0 10">
+                <Grid.Styles>
+                    <Style Selector="TextBlock">
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="TextAlignment" Value="Center" />
+                    </Style>
+                </Grid.Styles>
+                <TextBlock Grid.Column="0" Name="DuracionTxt" />
+                <TextBlock Grid.Column="1" Text="{Binding Actividad.Distancia, StringFormat='{}{0} km'}" />
+                <SplitButton Grid.Column="2" Name="DeleteBtn">
+                    <SplitButton.Content>
+                        <PathIcon Data="{StaticResource IconBorrar}" />
+                    </SplitButton.Content>
+                    <SplitButton.Flyout>
+                        <MenuFlyout>
+                            <MenuItem Header="Abrir mapa" />
+                            <MenuItem Header="Ver circuito" />
+                        </MenuFlyout>
+                    </SplitButton.Flyout>
+                </SplitButton>
+            </Grid>
+            <TextBlock Text="{Binding Actividad.Notas}" Margin="10" />
+            <TextBlock Text="Datos del circuito:" HorizontalAlignment="Center" />
+            <Grid ColumnDefinitions="*,5,*,20,*" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.Styles>
+                    <Style Selector="Grid > TextBlock, Grid > PathIcon">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Styles>
+                <Grid RowDefinitions="50,2,50">
+                    <PathIcon Grid.Row="0" Data="{StaticResource IconLugar}" />
+                    <PathIcon Grid.Row="2" Data="{StaticResource IconDistanciaCircuito}" />
+                </Grid>
+                <Grid Grid.Column="2" RowDefinitions="50,2,50">
+                    <TextBlock Grid.Row="0" Text="Lugar" />
+                    <TextBlock Grid.Row="2" Text="Distancia" />
+                </Grid>
+                <Grid Grid.Column="4" RowDefinitions="50,2,50">
+                    <Grid.Styles>
+                        <Style Selector="TextBlock">
+                            <Setter Property="TextAlignment" Value="Right" />
+                        </Style>
+                    </Grid.Styles>
+                    <TextBlock Grid.Row="0" Text="{Binding Actividad.Circuito.Lugar}" />
+                    <TextBlock Grid.Row="2" Text="{Binding Actividad.Circuito.Distancia, StringFormat='{}{0} km'}" />
+                </Grid>
+            </Grid>
         </StackPanel>
     </Border>
 </UserControl>
