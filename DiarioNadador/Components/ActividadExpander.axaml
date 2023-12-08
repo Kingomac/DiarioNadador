@@ -16,40 +16,21 @@
                     <Setter Property="VerticalAlignment" Value="Center" />
                 </Style>
             </StackPanel.Styles>
-            <!--<Grid ColumnDefinitions="*,*,80" Margin="0 0 0 5">
-                <Grid.Styles>
-                    <Style Selector="TextBlock">
-                        <Setter Property="FontSize" Value="18" />
-                        <Setter Property="Margin" Value="5" />
-                        <Setter Property="TextAlignment" Value="Center" />
-                    </Style>
-                </Grid.Styles>
-                <SplitButton Grid.Column="2" Name="DeleteBtn">
-                    <SplitButton.Content>
-                        <PathIcon Data="{StaticResource IconBorrar}" />
-                    </SplitButton.Content>
-                    <SplitButton.Flyout>
-                        <MenuFlyout>
-                            <MenuItem Header="Abrir mapa" />
-                            <MenuItem Header="Ver circuito" />
-                        </MenuFlyout>
-                    </SplitButton.Flyout>
-                </SplitButton>
-            </Grid>-->
-            <Grid ColumnDefinitions="*,5,*,20,*" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid RowDefinitions="50,2,50,2,50,2,50">
+            <Grid ColumnDefinitions="25,4,*,1,*" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                  Margin="15,2,15,0">
+                <Grid RowDefinitions="50,1,50,1,50,1,50">
                     <PathIcon Data="{StaticResource IconDistanciaActividad}" />
                     <PathIcon Grid.Row="2" Data="{StaticResource IconDuracionActividad}" />
                     <PathIcon Grid.Row="4" Data="{StaticResource IconNotas}" />
                     <PathIcon Grid.Row="6" Data="{StaticResource IconLugar}" />
                 </Grid>
-                <Grid Grid.Column="2" RowDefinitions="50,2,50,2,50,2,50">
+                <Grid Grid.Column="2" RowDefinitions="50,1,50,1,50,1,50">
                     <TextBlock TextWrapping="Wrap">Distancia recorrida</TextBlock>
                     <TextBlock Grid.Row="2">Duración</TextBlock>
                     <TextBlock Grid.Row="4"> Notas</TextBlock>
                     <TextBlock Grid.Row="6">Lugar</TextBlock>
                 </Grid>
-                <Grid Grid.Column="4" RowDefinitions="50,2,50,2,50,2,50">
+                <Grid Grid.Column="4" RowDefinitions="50,1,50,1,50,1,50">
                     <Grid.Styles>
                         <Style Selector="TextBlock">
                             <Setter Property="TextAlignment" Value="Right" />
