@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -30,8 +31,9 @@ public partial class ActividadExpander : UserControl
             if (value is null) return;
             SetValue(ActividadProperty, value);
             DuracionTxt.Text = value.TiempoEmpleado.ToString(@"m\'ss\""");
-            /*MapaBtn.IsVisible = !string.IsNullOrEmpty(value.Circuito.UrlMapa);
-            NotesBtn.IsVisible = !string.IsNullOrEmpty(value.Notas);*/
+            LugarDistanciaTxt.Text = $"{value.Circuito.Lugar} ({value.Distancia}km)";
+            MapaBtn.IsVisible = !string.IsNullOrEmpty(value.Circuito.UrlMapa);
+            /*NotesBtn.IsVisible = !string.IsNullOrEmpty(value.Notas);*/
         }
     }
 
@@ -48,12 +50,12 @@ public partial class ActividadExpander : UserControl
     private void NotesBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         NotesOpacity = NotesOpacity == 0 ? 1 : 0;
-    }
+    }*/
 
     private void DeleteBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         RaiseEvent(new RoutedEventArgs(DeleteEvent));
-    }*/
+    }
 
     public event EventHandler Delete
     {
@@ -61,8 +63,9 @@ public partial class ActividadExpander : UserControl
         remove => RemoveHandler(DeleteEvent, value);
     }
 
-    /*private void MapaBtn_OnClick(object? sender, RoutedEventArgs e)
+    private void MapaBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        Process.Start(new ProcessStartInfo(Actividad.Circuito.UrlMapa) { UseShellExecute = true });
-    }*/
+        if (Actividad != null)
+            Process.Start(new ProcessStartInfo(Actividad.Circuito.UrlMapa) { UseShellExecute = true });
+    }
 }
