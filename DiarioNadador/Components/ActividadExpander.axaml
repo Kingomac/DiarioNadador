@@ -57,12 +57,21 @@
                         </Style>
                     </StackPanel.Styles>
                     <Button>
+                        <ToolTip.Tip>
+                            <TextBlock Text="Borrar actividad" />
+                        </ToolTip.Tip>
                         <PathIcon Data="{StaticResource IconBorrar}" />
                     </Button>
                     <Button Name="MapaBtn" Click="MapaBtn_OnClick">
+                        <ToolTip.Tip>
+                            <TextBlock Text="Abrir URL del mapa" />
+                        </ToolTip.Tip>
                         <PathIcon Data="{StaticResource IconMapaCircuito}" />
                     </Button>
                     <Button>
+                        <ToolTip.Tip>
+                            <TextBlock Text="Ver detalles del circuito" />
+                        </ToolTip.Tip>
                         <PathIcon Data="{StaticResource IconVentanaExterna}" />
                     </Button>
                 </StackPanel>
