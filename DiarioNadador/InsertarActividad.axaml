@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DiarioNadador.InsertarActividad">
+    <DockPanel
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+        
+        <Menu
+            DockPanel.Dock="Top"
+            VerticalAlignment="Top" Background="#DDDDDD">
+            
+            <MenuItem Header="Archivo">
+                <MenuItem Header="Salir" Name="OpSalir" />
+            </MenuItem>
+        </Menu>
+    <StackPanel HorizontalAlignment="Center" Margin="40">
+        <DatePicker Name="fecha"/>
+        <DockPanel HorizontalAlignment="Center">
+            <Label DockPanel.Dock="Left" Content="Tiempo actividad" VerticalAlignment="Center" />
+            <TextBox Name="edTiempo" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="0,10,0,0"/>
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Center">
+            <Label DockPanel.Dock="Left" Content="Distancia actividad" VerticalAlignment="Center" />
+            <TextBox Name="edDistancia" DockPanel.Dock="Right" VerticalAlignment="Center"  Margin="0,10,0,0" />
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Center">
+            <Label DockPanel.Dock="Left" Content="Circuito actividad" VerticalAlignment="Center" />
+            <TextBox Name="edCircuito" DockPanel.Dock="Right" VerticalAlignment="Center"  Margin="0,10,0,0" />
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Center">
+            <Label DockPanel.Dock="Left" Content="Notas actividad" VerticalAlignment="Center" />
+            <TextBox Name="edNotas" DockPanel.Dock="Right" VerticalAlignment="Center"  Margin="0,10,0,0" />
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Center">
+            <Button Name="btGuardar" DockPanel.Dock="Right" Content="Guarda una actividad"   Margin="0,10,0,0"/>
+        </DockPanel>
+        </StackPanel>
+        </DockPanel>
+</Window>

@@ -14,6 +14,8 @@ public partial class ActividadesView : UserControl
     public static readonly StyledProperty<DiarioEntrenamiento> DiarioEntrenamientoProperty =
         AvaloniaProperty.Register<ActividadesView, DiarioEntrenamiento>(
             nameof(DiarioEntrenamiento));
+    
+    
 
     public ActividadesView()
     {
@@ -21,6 +23,9 @@ public partial class ActividadesView : UserControl
 
         ListaActividades.ItemTemplate =
             new FuncDataTemplate<Actividad>((value, _) => new ActividadExpander { Actividad = value });
+        
+        var btInsertar = this.FindControl<Button>("idInsertar");
+        btInsertar!.Click +=(_, _) => this.insertar();
     }
 
     public required DiarioEntrenamiento DiarioEntrenamiento
@@ -47,5 +52,11 @@ public partial class ActividadesView : UserControl
     private void Control_OnLoaded(object? sender, RoutedEventArgs e)
     {
         Calendar.SelectedDate = DateTime.Now;
+    }
+    
+    public void insertar()
+    {
+        List<Actividad> actividades = new List<Actividad>();
+        new InsertarActividad(actividades).Show();
     }
 }
