@@ -6,49 +6,76 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DiarioNadador.Components.ActividadExpander"
              x:DataType="components:ActividadExpander">
-    <Grid RowDefinitions="*,*" Name="MainGrid">
-        <Grid Grid.Row="0" ColumnDefinitions="*,60,60,60">
-            <StackPanel>
-                <StackPanel.Styles>
-                    <Style Selector="TextBlock">
-                        <Setter Property="TextAlignment" Value="Center" />
-                    </Style>
-                    <Style Selector="Grid > TextBlock">
-                        <Setter Property="FontSize" Value="14" />
-                        <Setter Property="Foreground">
-                            <Setter.Value>
-                                <SolidColorBrush>
-                                    <SolidColorBrush.Color>
-                                        <Color>#2e2e2e</Color>
-                                    </SolidColorBrush.Color>
-                                </SolidColorBrush>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </StackPanel.Styles>
-                <TextBlock Text="{Binding Actividad.Circuito.Lugar}" FontSize="18" />
-                <Grid ColumnDefinitions="*,*">
-                    <TextBlock Name="DuracionTxt" />
-                    <TextBlock Text="{Binding Actividad.Distancia, StringFormat='{}{0} km'}" Grid.Column="1" />
+    <Border BorderThickness="2 2 2 0" BorderBrush="LightGray" Margin="10">
+        <StackPanel>
+            <StackPanel.Styles>
+                <Style Selector="Expander">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                </Style>
+                <Style Selector="Grid > Grid > TextBlock, Grid > PathIcon">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </StackPanel.Styles>
+            <Grid ColumnDefinitions="25,4,*,1,*" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                  Margin="15,2,15,0">
+                <Grid RowDefinitions="50,1,50,1,50,1,50">
+                    <PathIcon Data="{StaticResource IconDistanciaActividad}" />
+                    <PathIcon Grid.Row="2" Data="{StaticResource IconDuracionActividad}" />
+                    <PathIcon Grid.Row="4" Data="{StaticResource IconNotas}" />
+                    <PathIcon Grid.Row="6" Data="{StaticResource IconLugar}" />
                 </Grid>
-            </StackPanel>
-            <Button Grid.Column="1" VerticalAlignment="Center" Name="MapaBtn"
-                    Click="MapaBtn_OnClick">
-                Mapa
-            </Button>
-            <Button Grid.Column="2" VerticalAlignment="Center" Name="NotesBtn"
-                    Click="NotesBtn_OnClick">
-                Notas
-            </Button>
-            <Button Grid.Column="3" VerticalAlignment="Center" Name="DeleteBtn" Click="DeleteBtn_OnClick">Borrar</Button>
-        </Grid>
-        <TextBlock Margin="10" Grid.Row="1" IsVisible="False" Opacity="0" Name="NotasTxt"
-                   Text="{Binding Actividad.Notas}">
-            <TextBlock.Transitions>
-                <Transitions>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
-                </Transitions>
-            </TextBlock.Transitions>
-        </TextBlock>
-    </Grid>
+                <Grid Grid.Column="2" RowDefinitions="50,1,50,1,50,1,50">
+                    <TextBlock TextWrapping="Wrap">Distancia recorrida</TextBlock>
+                    <TextBlock Grid.Row="2">Duración</TextBlock>
+                    <TextBlock Grid.Row="4"> Notas</TextBlock>
+                    <TextBlock Grid.Row="6">Lugar</TextBlock>
+                </Grid>
+                <Grid Grid.Column="4" RowDefinitions="50,1,50,1,50,1,50">
+                    <Grid.Styles>
+                        <Style Selector="TextBlock">
+                            <Setter Property="TextAlignment" Value="Right" />
+                        </Style>
+                    </Grid.Styles>
+                    <TextBlock Text="{Binding Actividad.Distancia}" />
+                    <TextBlock Grid.Row="2" Name="DuracionTxt" />
+                    <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="{Binding Actividad.Notas}" />
+                    <TextBlock Grid.Row="6" Name="LugarDistanciaTxt" />
+                </Grid>
+            </Grid>
+            <Panel Background="LightGray">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <StackPanel.Styles>
+                        <Style Selector="Button">
+                            <Setter Property="Background" Value="LightGray" />
+                            <Setter Property="CornerRadius" Value="0" />
+                            <Setter Property="VerticalAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="DarkGray" />
+                        </Style>
+                    </StackPanel.Styles>
+                    <Button>
+                        <ToolTip.Tip>
+                            <TextBlock Text="Borrar actividad" />
+                        </ToolTip.Tip>
+                        <PathIcon Data="{StaticResource IconBorrar}" />
+                    </Button>
+                    <Button Name="MapaBtn" Click="MapaBtn_OnClick">
+                        <ToolTip.Tip>
+                            <TextBlock Text="Abrir URL del mapa" />
+                        </ToolTip.Tip>
+                        <PathIcon Data="{StaticResource IconMapaCircuito}" />
+                    </Button>
+                    <Button>
+                        <ToolTip.Tip>
+                            <TextBlock Text="Ver detalles del circuito" />
+                        </ToolTip.Tip>
+                        <PathIcon Data="{StaticResource IconVentanaExterna}" />
+                    </Button>
+                </StackPanel>
+            </Panel>
+        </StackPanel>
+    </Border>
 </UserControl>

@@ -6,13 +6,18 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DiarioNadador.ActividadesView"
              Loaded="Control_OnLoaded">
-    <Grid ColumnDefinitions="*,4,*">
-        <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0">
+    <DockPanel>
+        <Calendar DisplayMode="Month" SelectionMode="SingleDate" Name="Calendar"
+                  SelectedDatesChanged="Calendar_OnSelectedDatesChanged" VerticalAlignment="Top"
+                  HorizontalAlignment="Center" Margin="5" DockPanel.Dock="Right" />
+        <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="300"
+               DockPanel.Dock="Left">
             <TabControl VerticalAlignment="Stretch">
                 <TabItem Header="Actividades">
                     <Grid RowDefinitions="*,50">
                         <ScrollViewer>
-                            <ListBox Name="ListaActividades" />
+                            <!--<ListBox Name="ListaActividades" />-->
+                            <ItemsControl Name="ListaActividades" />
                         </ScrollViewer>
                         <Button Grid.Row="1" VerticalAlignment="Stretch" Name="idInsertar" HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18">
@@ -25,10 +30,5 @@
                 </TabItem>
             </TabControl>
         </Panel>
-        <GridSplitter Background="Black" ResizeDirection="Columns" Grid.Column="1" />
-        <StackPanel Grid.Column="2">
-            <Calendar DisplayMode="Month" SelectionMode="SingleDate" Name="Calendar"
-                      SelectedDatesChanged="Calendar_OnSelectedDatesChanged" />
-        </StackPanel>
-    </Grid>
+    </DockPanel>
 </UserControl>
