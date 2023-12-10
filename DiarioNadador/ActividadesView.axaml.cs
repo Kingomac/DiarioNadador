@@ -14,8 +14,7 @@ public partial class ActividadesView : UserControl
     public static readonly StyledProperty<DiarioEntrenamiento> DiarioEntrenamientoProperty =
         AvaloniaProperty.Register<ActividadesView, DiarioEntrenamiento>(
             nameof(DiarioEntrenamiento));
-    
-    
+
 
     public ActividadesView()
     {
@@ -23,9 +22,6 @@ public partial class ActividadesView : UserControl
 
         ListaActividades.ItemTemplate =
             new FuncDataTemplate<Actividad>((value, _) => new ActividadExpander { Actividad = value });
-        
-        var btInsertar = this.FindControl<Button>("idInsertar");
-        btInsertar!.Click +=(_, _) => this.insertar();
     }
 
     public required DiarioEntrenamiento DiarioEntrenamiento
@@ -36,15 +32,23 @@ public partial class ActividadesView : UserControl
 
     private void Calendar_OnSelectedDatesChanged(object? sender, SelectionChangedEventArgs e)
     {
-        var date = e.AddedItems[0] as DateTime? ?? throw new NullReferenceException();
+        ActualizarActividadesMedidas();
+    }
+
+    private void ActualizarActividadesMedidas()
+    {
+        Console.WriteLine("Actualizar actividades y medidas");
+        ListaActividades.Items.Clear();
+        var date = Calendar.SelectedDate ?? DateTime.Now;
         if (DiarioEntrenamiento.TryGetValue(DateOnly.FromDateTime(date), out var diaEntrenamiento))
         {
-            ListaActividades.ItemsSource = diaEntrenamiento.Actividades;
+            Console.WriteLine("Dia entrenamiento encontrado");
+            foreach (var act in diaEntrenamiento.Actividades) ListaActividades.Items.Add(act);
             MedidasControl.Medidas = diaEntrenamiento.Medidas ?? new Medidas(0, 0, "");
         }
         else
         {
-            ListaActividades.ItemsSource = new List<Actividad>();
+            Console.WriteLine("Dia entrenamiento no encontrado");
             MedidasControl.Medidas = new Medidas(0, 0, "");
         }
     }
@@ -53,10 +57,20 @@ public partial class ActividadesView : UserControl
     {
         Calendar.SelectedDate = DateTime.Now;
     }
-    
-    public void insertar()
+
+    public void InsertarActividad(object? sender, RoutedEventArgs e)
     {
-        List<Actividad> actividades = new List<Actividad>();
-        new InsertarActividad(actividades).Show();
+        var winActividades = new InsertarActividad(Calendar.SelectedDate);
+        winActividades.Insertar += (_, args) =>
+        {
+            Console.WriteLine("InsertarActividad");
+            if (DiarioEntrenamiento.TryGetValue(args.Fecha, out var diaEntrenamiento))
+                diaEntrenamiento.Actividades.Add(args.Actividad);
+            else
+                DiarioEntrenamiento.Add(args.Fecha,
+                    new DiaEntrenamiento { Actividades = new List<Actividad> { args.Actividad } });
+            ActualizarActividadesMedidas();
+        };
+        winActividades.Show();
     }
 }

@@ -14,7 +14,7 @@ public partial class ActividadExpander : UserControl
             nameof(Actividad));
 
     public RoutedEvent<RoutedEventArgs> DeleteEvent = RoutedEvent.Register<ActividadExpander, RoutedEventArgs>(
-        nameof(DeleteEvent),
+        nameof(Delete),
         RoutingStrategies.Bubble);
 
     public ActividadExpander()
