@@ -27,7 +27,14 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Medidas">
-                    <components:MedidasControl Margin="10" Name="MedidasControl" />
+                    <Grid RowDefinitions="*,50">
+                        <components:MedidasControl Margin="10" Name="MedidasControl" />
+                        <Button Grid.Row="1" VerticalAlignment="Stretch" Click="GuardarMedidas"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18">
+                            Guardar
+                        </Button>
+                    </Grid>
                 </TabItem>
             </TabControl>
         </Panel>

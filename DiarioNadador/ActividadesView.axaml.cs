@@ -6,6 +6,7 @@ using Avalonia.Controls.Templates;
 using Avalonia.Interactivity;
 using DiarioNadador.Components;
 using DiarioNadador.Core;
+using DiarioNadador.Core.XML;
 
 namespace DiarioNadador;
 
@@ -73,4 +74,22 @@ public partial class ActividadesView : UserControl
         };
         winActividades.Show();
     }
+
+    public void GuardarMedidas(object? sender, RoutedEventArgs e)
+    {
+        double peso = Convert.ToDouble(MedidasControl.FindControl<NumericUpDown>("PesoTxt").Text);
+        double circunferencia = Convert.ToDouble(MedidasControl.FindControl<NumericUpDown>("CircunferenciaAbdominalTxt").Text);
+        string notas = Convert.ToString(MedidasControl.FindControl<TextBox>("NotasTxt").Text);
+
+        var date = Calendar.SelectedDate ?? DateTime.Now;
+        if (DiarioEntrenamiento.TryGetValue(DateOnly.FromDateTime(date), out var diaEntrenamiento))
+        {
+            diaEntrenamiento.Medidas = new Medidas(peso, circunferencia, notas);
+            Console.WriteLine("Medidas guardadas");
+        }
+        ActualizarActividadesMedidas();
+
+        XmlMedidas.MedidasToXml(peso, circunferencia, notas);
+    }
+
 }
