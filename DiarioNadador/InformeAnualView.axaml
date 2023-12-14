@@ -1,27 +1,40 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
-        x:Class="DiarioNadador.InformeAnualView"
-        MinWidth="1190" MinHeight="600">
-        
-    <DockPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" DockPanel.Dock="Top">
-            <Button Name="Lineal" Content="Gráfico lineal" Width="110" Height="30" Margin="0,0,10,0"/>
-            <Button Name="Columnas" Content="Gráfico de columnas" Width="160" Height="30"/>
-        </StackPanel>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+             x:Class="DiarioNadador.InformeAnualView">
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/> 
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <Border Name="Grafico" Width="960" Height="550" Margin="10,0,0,0" Grid.Column="0"></Border>
-            <Border Name="ZonaTexto" BorderBrush="White" BorderThickness="1" Margin="10" Grid.Column="1" IsVisible="False">
-                <TextBlock Name="Texto" HorizontalAlignment="Right" Margin="10"/>
-            </Border>
-        </Grid>
-    </DockPanel>
+    <ScrollViewer>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right">
+                <Calendar Margin="10" DisplayMode="Decade" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="Selecciona el color del gráfico:" />
+                    <ColorPicker VerticalAlignment="Center" Margin="2" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Text="Selecciona el color del texto:" />
+                    <ColorPicker VerticalAlignment="Center" Margin="2" />
+                </StackPanel>
+            </StackPanel>
+            <TabControl DockPanel.Dock="Left">
+                <TabItem Header="Lineal">
+                    <Border Name="GraficoLineal" Width="800" Height="550" Margin="10,0,0,0">
+                        <Canvas Name="CanvasLineal" />
+                    </Border>
+                </TabItem>
+                <TabItem Header="Columnas">
+                    <Border Name="GraficoColumnas" Width="800" Height="550" Margin="10,0,0,0">
+                        <Canvas Name="CanvasColumnas" />
+                    </Border>
+                </TabItem>
+                <TabItem Header="Texto">
+                    <Border Name="ZonaTexto" BorderBrush="White" BorderThickness="1" Margin="10">
+                        <TextBlock Name="Texto" Margin="10" />
+                    </Border>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </ScrollViewer>
 </UserControl>
