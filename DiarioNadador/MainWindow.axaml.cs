@@ -22,7 +22,7 @@ public partial class MainWindow : Window
             //{ nameof(MenuViewListCircuitos), },
             //{nameof(MenuViewListGraficaActividades), },
             //{ nameof(MenuViewListGraficaMedidas), },
-            { nameof(MenuViewListInformeAnual), new InformeAnualView() }
+            { nameof(MenuViewListInformeAnual), new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento } }
         });
 #if DEBUG
         this.AttachDevTools();
@@ -69,7 +69,7 @@ public partial class MainWindow : Window
             MainViewContent.Content = newSelected.Name switch
             {
                 nameof(MenuViewListActividades) => new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento },
-                nameof(MenuViewListInformeAnual) => new InformeAnualView(),
+                nameof(MenuViewListInformeAnual) => new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento },
                 _ => MainViewContent.Content
             };
         }

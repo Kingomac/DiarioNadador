@@ -1,8 +1,13 @@
+using System;
 using System.Text;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Threading;
+using DiarioNadador.Core;
 
 namespace DiarioNadador;
 
@@ -12,20 +17,58 @@ public partial class InformeAnualView : UserControl
     private const int FilasY = 10;
     private const int ValorFila = 15;
 
+    private static readonly string[] Meses =
+    {
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    };
+
+    public static readonly StyledProperty<DiarioEntrenamiento> DiarioEntrenamientoProperty =
+        AvaloniaProperty.Register<InformeAnualView, DiarioEntrenamiento>(
+            nameof(DiarioEntrenamiento));
+
     public InformeAnualView()
     {
         InitializeComponent();
+    }
 
-        double[] pesos = { 70.5, 55.2, 80.0, 65.8, 90.3, 72.1, 68.9, 75.4, 82.6, 60.7, 70.5, 70.5 };
-        string[] meses = { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
+    public required DiarioEntrenamiento DiarioEntrenamiento
+    {
+        get => GetValue(DiarioEntrenamientoProperty);
+        set => SetValue(DiarioEntrenamientoProperty, value);
+    }
 
-        Text(meses, pesos);
+    private async Task<double[]> BuscarPesos(int ano)
+    {
+        var pesos = new double[12];
+        var calcularMediaMes = (int iano, int imes, DiarioEntrenamiento idiarioEntrenamiento) =>
+        {
+            var sumaPesos = 0.0;
+            var numPesos = 0;
+            for (var dia = 1; dia <= DateTime.DaysInMonth(iano, imes); dia++)
+            {
+                var key = new DateOnly(iano, imes, dia);
+                if (idiarioEntrenamiento.TryGetValue(key, out var diaEntrenamiento))
+                    if (diaEntrenamiento.Medidas != null && diaEntrenamiento.Medidas.Peso > 1)
+                    {
+                        sumaPesos += diaEntrenamiento.Medidas.Peso;
+                        numPesos++;
+                    }
+            }
 
-        DrawGrid(CanvasLineal, meses, GraficoLineal.Width, GraficoLineal.Height);
-        DrawLines(CanvasLineal, GraficoLineal.Width, GraficoLineal.Height, pesos);
+            if (numPesos == 0) return 0;
+            return sumaPesos / numPesos;
+        };
 
-        DrawGrid(CanvasColumnas, meses, GraficoColumnas.Width, GraficoColumnas.Height);
-        DrawRectangle(CanvasColumnas, GraficoColumnas.Width, GraficoColumnas.Height, pesos);
+        for (var mes = 1; mes <= 12; mes++)
+        {
+            var mes1 = mes;
+            pesos[mes - 1] = await
+                Dispatcher.UIThread.InvokeAsync(() =>
+                    calcularMediaMes(ano, mes1, DiarioEntrenamiento));
+        }
+
+        return pesos;
     }
 
     private void DrawGrid(Canvas canvas, string[] meses, double borderWidth, double borderHeight)
@@ -177,5 +220,30 @@ public partial class InformeAnualView : UserControl
         }
 
         Texto.Text = sb.ToString();
+    }
+
+    private void Control_OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        Calendario.SelectedDate = DateTime.Now;
+        ActualizarGraficos();
+    }
+
+    private void Calendario_OnSelectedDatesChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        ActualizarGraficos();
+    }
+
+    private async void ActualizarGraficos()
+    {
+        var pesos = await BuscarPesos(Calendario.SelectedDate!.Value.Year
+        ); //= { 70.5, 55.2, 80.0, 65.8, 90.3, 72.1, 68.9, 75.4, 82.6, 60.7, 70.5, 70.5 };
+
+        Text(Meses, pesos);
+
+        DrawGrid(CanvasLineal, Meses, GraficoLineal.Width, GraficoLineal.Height);
+        DrawLines(CanvasLineal, GraficoLineal.Width, GraficoLineal.Height, pesos);
+
+        DrawGrid(CanvasColumnas, Meses, GraficoColumnas.Width, GraficoColumnas.Height);
+        DrawRectangle(CanvasColumnas, GraficoColumnas.Width, GraficoColumnas.Height, pesos);
     }
 }

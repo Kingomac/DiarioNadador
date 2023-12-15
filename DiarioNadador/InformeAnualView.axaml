@@ -3,12 +3,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
-             x:Class="DiarioNadador.InformeAnualView">
+             x:Class="DiarioNadador.InformeAnualView"
+             Loaded="Control_OnLoaded">
 
     <ScrollViewer>
         <DockPanel>
             <StackPanel DockPanel.Dock="Right">
-                <Calendar Margin="10" DisplayMode="Decade" />
+                <Calendar Margin="10" DisplayMode="Decade" Name="Calendario"
+                          SelectedDatesChanged="Calendario_OnSelectedDatesChanged" />
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="Selecciona el color del gráfico:" />
                     <ColorPicker VerticalAlignment="Center" Margin="2" />
