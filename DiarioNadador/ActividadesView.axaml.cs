@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Interactivity;
 using DiarioNadador.Components;
 using DiarioNadador.Core;
-using DiarioNadador.Core.XML;
 
 namespace DiarioNadador;
 
@@ -23,6 +23,7 @@ public partial class ActividadesView : UserControl
 
         ListaActividades.ItemTemplate =
             new FuncDataTemplate<Actividad>((value, _) => new ActividadExpander { Actividad = value });
+        MedidasControl.MedidasModificadas += (_, medidas) => { };
     }
 
     public required DiarioEntrenamiento DiarioEntrenamiento
@@ -38,18 +39,18 @@ public partial class ActividadesView : UserControl
 
     private void ActualizarActividadesMedidas()
     {
-        Console.WriteLine("Actualizar actividades y medidas");
+        Debug.WriteLine("Actualizando actividades y medidas");
         ListaActividades.Items.Clear();
         var date = Calendar.SelectedDate ?? DateTime.Now;
         if (DiarioEntrenamiento.TryGetValue(DateOnly.FromDateTime(date), out var diaEntrenamiento))
         {
-            Console.WriteLine("Dia entrenamiento encontrado");
+            Debug.WriteLine("Existen datos para el dia seleccionado");
             foreach (var act in diaEntrenamiento.Actividades) ListaActividades.Items.Add(act);
             MedidasControl.Medidas = diaEntrenamiento.Medidas ?? new Medidas(0, 0, "");
         }
         else
         {
-            Console.WriteLine("Dia entrenamiento no encontrado");
+            Debug.WriteLine("No existen datos para el dia seleccionado");
             MedidasControl.Medidas = new Medidas(0, 0, "");
         }
     }
@@ -75,21 +76,19 @@ public partial class ActividadesView : UserControl
         winActividades.Show();
     }
 
-    public void GuardarMedidas(object? sender, RoutedEventArgs e)
+    private void MedidasControl_OnMedidasModificadas(object? sender, Medidas e)
     {
-        double peso = Convert.ToDouble(MedidasControl.FindControl<NumericUpDown>("PesoTxt").Text);
-        double circunferencia = Convert.ToDouble(MedidasControl.FindControl<NumericUpDown>("CircunferenciaAbdominalTxt").Text);
-        string notas = Convert.ToString(MedidasControl.FindControl<TextBox>("NotasTxt").Text);
-
-        var date = Calendar.SelectedDate ?? DateTime.Now;
-        if (DiarioEntrenamiento.TryGetValue(DateOnly.FromDateTime(date), out var diaEntrenamiento))
-        {
-            diaEntrenamiento.Medidas = new Medidas(peso, circunferencia, notas);
-            Console.WriteLine("Medidas guardadas");
-        }
-        ActualizarActividadesMedidas();
-
-        XmlMedidas.MedidasToXml(peso, circunferencia, notas);
+        if (Calendar.SelectedDate is null)
+            throw new NullReferenceException("Calendar.SelectedDate es null en GuardarMedidas");
+        var date = DateOnly.FromDateTime(Calendar.SelectedDate.Value);
+        if (DiarioEntrenamiento.TryGetValue(date, out var diaEntrenamiento))
+            diaEntrenamiento.Medidas = MedidasControl.Medidas;
+        else
+            DiarioEntrenamiento[date] = new DiaEntrenamiento
+            {
+                Actividades = new List<Actividad>(),
+                Medidas = MedidasControl.Medidas
+            };
+        Debug.WriteLine("Guardadas medidas para " + date + ": " + MedidasControl.Medidas);
     }
-
 }
