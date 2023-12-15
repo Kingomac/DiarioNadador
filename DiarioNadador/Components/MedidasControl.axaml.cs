@@ -1,4 +1,6 @@
+using System;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using DiarioNadador.Core;
 
 namespace DiarioNadador.Components;
@@ -38,5 +40,12 @@ public partial class MedidasControl : UserControl
     {
         get => NotasTxt.Text ?? string.Empty;
         set => NotasTxt.Text = value;
+    }
+
+    public event EventHandler<Medidas>? MedidasModificadas;
+
+    public void OnMedidasModificadas(object? sender, RoutedEventArgs ev)
+    {
+        MedidasModificadas?.Invoke(this, Medidas);
     }
 }

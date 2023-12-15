@@ -19,6 +19,8 @@ public class Medidas
         Notas = "";
     }
 
+    public static Medidas Default => new(0, 0, "");
+
     public double Peso { get; set; }
     public double CircunferenciaAbdominal { get; set; }
     public string Notas { get; set; }
