@@ -10,6 +10,7 @@
         <entry key="DiarioNadador/Components/ActividadHeader.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/Components/DeleteableExpander.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/Components/DeleteableExpander2.axaml" value="DiarioNadador/DiarioNadador.csproj" />
+        <entry key="DiarioNadador/Components/LoadingView.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/Components/MedidasControl.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/DiaEntrenamientoWindow.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/InformeAnualView.axaml" value="DiarioNadador/DiarioNadador.csproj" />
