@@ -12,11 +12,11 @@
                           SelectedDatesChanged="Calendario_OnSelectedDatesChanged" />
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="Selecciona el color del gráfico:" />
-                    <ColorPicker VerticalAlignment="Center" Margin="2" />
+                    <ColorPicker Name="ColorDatos" VerticalAlignment="Center" Margin="2" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="Selecciona el color del texto:" />
-                    <ColorPicker VerticalAlignment="Center" Margin="2" />
+                    <ColorPicker Name="ColorLabel" VerticalAlignment="Center" Margin="2" />
                 </StackPanel>
             </StackPanel>
             <TabControl DockPanel.Dock="Left">

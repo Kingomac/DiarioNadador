@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using Avalonia.Threading;
 using DiarioNadador.Core;
 
@@ -14,6 +15,11 @@ public partial class InformeAnualView : UserControl
     private const int Margen = 25;
     private const int FilasY = 10;
     private const int ValorFila = 15;
+
+    private IImmutableSolidColorBrush _colorMaya = new ImmutableSolidColorBrush(Colors.Black);
+    
+    private IImmutableSolidColorBrush _colorDatos = new ImmutableSolidColorBrush(Colors.Blue);
+    private IImmutableSolidColorBrush _colorLabel = new ImmutableSolidColorBrush(Colors.Blue);
 
     private static readonly string[] Meses =
         { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
@@ -27,6 +33,9 @@ public partial class InformeAnualView : UserControl
         InitializeComponent();
         Calendario.SelectedDate = DateTime.Now;
         ActualizarGraficos();
+
+        ColorDatos.ColorChanged += ActualizarColor;
+        ColorLabel.ColorChanged += ActualizarColor;
     }
 
     public required DiarioEntrenamiento DiarioEntrenamiento
@@ -45,7 +54,7 @@ public partial class InformeAnualView : UserControl
     {
         var ejes = new Polyline
         {
-            Stroke = Brushes.White,
+            Stroke = _colorMaya,
             StrokeThickness = 2.5
         };
 
@@ -63,7 +72,7 @@ public partial class InformeAnualView : UserControl
         {
             var ejeX = new Polyline
             {
-                Stroke = Brushes.White,
+                Stroke = _colorMaya,
                 StrokeThickness = 0.5
             };
 
@@ -76,7 +85,7 @@ public partial class InformeAnualView : UserControl
             var textBlock = new TextBlock
             {
                 Text = meses[i],
-                Foreground = Brushes.Aquamarine,
+                Foreground = _colorLabel,
                 Margin = new Thickness((i + 1) * distanciaX + Margen - 10, height - 20, 0, 0)
             };
 
@@ -90,7 +99,7 @@ public partial class InformeAnualView : UserControl
 
             var ejeY = new Polyline
             {
-                Stroke = Brushes.White,
+                Stroke = _colorMaya,
                 StrokeThickness = 0.5
             };
 
@@ -103,7 +112,7 @@ public partial class InformeAnualView : UserControl
             var textBlock = new TextBlock
             {
                 Text = valor + "",
-                Foreground = Brushes.Aquamarine,
+                Foreground = _colorLabel,
                 Margin = new Thickness(0, height - Margen + i * distanciaY, 0, 0)
             };
 
@@ -119,7 +128,7 @@ public partial class InformeAnualView : UserControl
         var puntos = Points(width, height, valores);
         var polyline = new Polyline
         {
-            Stroke = Brushes.Blue,
+            Stroke = _colorDatos,
             StrokeThickness = 2
         };
 
@@ -138,7 +147,7 @@ public partial class InformeAnualView : UserControl
             {
                 Width = 20,
                 Height = height - Margen - puntos[i].Y,
-                Fill = Brushes.Blue
+                Fill = _colorDatos
             };
             Canvas.SetLeft(rectangulo, puntos[i].X - 10);
             Canvas.SetTop(rectangulo, puntos[i].Y);
@@ -146,7 +155,7 @@ public partial class InformeAnualView : UserControl
             var textBlock = new TextBlock
             {
                 Text = valores[i] + "",
-                Foreground = Brushes.Aquamarine,
+                Foreground = _colorLabel,
                 Margin = new Thickness(puntos[i].X - 10, puntos[i].Y - 20, 0, 0)
             };
 
@@ -184,6 +193,24 @@ public partial class InformeAnualView : UserControl
         }
 
         Texto.Text = sb.ToString();
+    }
+
+    private void ActualizarColor(object? sender, ColorChangedEventArgs e)
+    {
+        if (sender is ColorPicker selec)
+        {
+            if (selec.Name.Equals("ColorDatos"))
+            {
+                _colorDatos = new ImmutableSolidColorBrush(e.NewColor);
+            }
+            
+            if (selec.Name.Equals("ColorLabel"))
+            {
+                _colorLabel = new ImmutableSolidColorBrush(e.NewColor);
+            }
+        }
+        
+        ActualizarGraficos();
     }
 
     private void Calendario_OnSelectedDatesChanged(object? sender, SelectionChangedEventArgs e)
