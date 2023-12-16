@@ -11,15 +11,13 @@
             <TabControl DockPanel.Dock="Left">
                 <TabItem Header="Circunferencia abdominal">
                     <StackPanel>
-                        <TextBlock Text="Gráfico Circunferencia Abdominal(cms.)" />
-                        <Canvas Name="chartCircunferencia" Width="1000" Height="250" />
+                        <Canvas Name="chartCircunferencia" Width="800" Height="400" />
                     </StackPanel>
                 </TabItem>
 
                 <TabItem Header="Peso">
                     <StackPanel>
-                        <TextBlock Text="Gráfico Peso (Kg)" Margin="0,50,0,0" />
-                        <Canvas Name="chartPeso" Width="1000" Height="250" Margin="0,0,0,100" />
+                        <Canvas Name="chartPeso" Width="800" Height="400" Margin="0,0,0,100" />
                     </StackPanel>
                 </TabItem>
             </TabControl>
