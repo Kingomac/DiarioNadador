@@ -24,5 +24,8 @@
             <DependentUpon>DeleteableExpander2.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Compile Update="InformeAnualView.axaml.cs">
+          <DependentUpon>InformeAnualView.axaml</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>

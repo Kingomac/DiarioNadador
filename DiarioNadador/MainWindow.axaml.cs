@@ -19,17 +19,6 @@ public partial class MainWindow : Window
         InitializeComponent();
         if (_diarioEntrenamiento is null) Console.WriteLine("DiarioEntrenamiento es nulo 1");
         else Console.WriteLine("DiarioEntrenamiento no es nulo 1");
-        Views = new ReadOnlyDictionary<string, UserControl>(new Dictionary<string, UserControl>
-        {
-            { nameof(MenuViewListActividades), new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento } },
-            //{ nameof(MenuViewListCircuitos), },
-            //{nameof(MenuViewListGraficaActividades), },
-            {
-                nameof(MenuViewListGraficaMedidas),
-                new GraficoMedidasUserControl { DiarioEntrenamiento = _diarioEntrenamiento }
-            } //,
-            //{ nameof(MenuViewListInformeAnual),  }
-        });
 #if DEBUG
         this.AttachDevTools();
 #endif
@@ -71,7 +60,13 @@ public partial class MainWindow : Window
             if (newSelected?.Name is null)
                 throw new NullReferenceException(
                     $"Menú seleccionado no válido, comprueba que está en el diccionario {nameof(Views)} en {nameof(MainWindow)} y que tiene un Name asignado");
-            MainViewContent.Content = Views[newSelected.Name];
+            //MainViewContent.Content = Views[newSelected.Name];
+            MainViewContent.Content = newSelected.Name switch
+            {
+                nameof(MenuViewListActividades) => new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento },
+                nameof(MenuViewListInformeAnual) => new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento },
+                _ => MainViewContent.Content
+            };
         }
         catch (Exception ex)
         {
