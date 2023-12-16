@@ -68,6 +68,40 @@ public partial class GraficoMedidasUserControl : UserControl
 
     private void DibujarEjes(Canvas canvas, IEnumerable<string> dates, double width, double height)
     {
+        // Dibujar cuadrícula de fondo
+        // Dibujar líneas horizontales
+        for (var i = 0; i <= 5; i++)
+        {
+            var lineaHorizontal = new Polyline
+            {
+                Points =
+            {
+                new Point(0, i * (height / 5)),
+                new Point(width, i * (height / 5))
+            },
+                Stroke = Brushes.LightGray,
+                StrokeThickness = 1
+            };
+            canvas.Children.Add(lineaHorizontal);
+        }
+
+        // Dibujar líneas verticales
+        for (var i = 0; i <= dates.Count(); i++)
+        {
+            var lineaVertical = new Polyline
+            {
+                Points =
+            {
+                new Point(i * (width / dates.Count()), 0),
+                new Point(i * (width / dates.Count()), height)
+            },
+                Stroke = Brushes.LightGray,
+                StrokeThickness = 1
+            };
+            canvas.Children.Add(lineaVertical);
+        }
+
+        //Dibujar ejes
         var ejes = new Polyline
         {
             Stroke = Brushes.Black,
@@ -96,8 +130,6 @@ public partial class GraficoMedidasUserControl : UserControl
             canvas.Children.Add(textBlock);
         }
 
-        double minValue = 0;
-        double maxValue = 100;
         double interval = 20;
         var distanciaY = height / 5;
 
