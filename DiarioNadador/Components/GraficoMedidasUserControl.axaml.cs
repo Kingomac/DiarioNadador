@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+<<<<<<< HEAD
+=======
+using Avalonia.Markup.Xaml;
+using System.Linq;
+
+using DiarioNadador.Core;
+using Avalonia.Media;
+>>>>>>> aff2b982adcea99dcc2a06aab8f6d0dbe5ce2f15
 using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
@@ -38,9 +46,13 @@ public partial class GraficoMedidasUserControl : UserControl
     {
         //List<Medidas> medidas = DiarioEntrenamiento.medidas();
         //medidas = medidas.OrderBy(m => m.Fecha).ToList();
+<<<<<<< HEAD
         var queries = new SearchQueries { DiarioEntrenamiento = DiarioEntrenamiento };
         var ano = Calendar.SelectedDate.Value.Year;
         var mes = Calendar.SelectedDate.Value.Month;
+=======
+        var queries = new SearchQueries(DiarioEntrenamiento);
+>>>>>>> aff2b982adcea99dcc2a06aab8f6d0dbe5ce2f15
         var medidas = queries.GetMedidas(ano, mes);
         var totalDias = DateTime.DaysInMonth(ano, mes);
 
