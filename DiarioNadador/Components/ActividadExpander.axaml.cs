@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 using DiarioNadador.Core;
 
 namespace DiarioNadador.Components;
@@ -52,9 +53,28 @@ public partial class ActividadExpander : UserControl
         NotesOpacity = NotesOpacity == 0 ? 1 : 0;
     }*/
 
-    private void DeleteBtn_OnClick(object? sender, RoutedEventArgs e)
+    private async void DeleteBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        RaiseEvent(new RoutedEventArgs(DeleteEvent));
+        var confirmacion = new Confirmacion
+        {
+            Titulo = "Eliminar actividad",
+            Cuerpo = "¿Estás seguro de que quieres eliminar esta actividad?"
+        };
+        confirmacion.Aceptar += (_, _) =>
+        {
+            Console.WriteLine("delete event");
+            RaiseEvent(new RoutedEventArgs(DeleteEvent));
+        };
+        var root = this.GetVisualRoot();
+        if (root is not null)
+        {
+            var window = root as Window;
+            await confirmacion.ShowDialog(window!);
+        }
+        else
+        {
+            confirmacion.Show();
+        }
     }
 
     public event EventHandler Delete

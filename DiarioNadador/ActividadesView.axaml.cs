@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
@@ -21,7 +22,19 @@ public partial class ActividadesView : UserControl
         InitializeComponent();
 
         ListaActividades.ItemTemplate =
-            new FuncDataTemplate<Actividad>((value, _) => new ActividadExpander { Actividad = value });
+            new FuncDataTemplate<Actividad>((value, _) =>
+            {
+                var expander = new ActividadExpander { Actividad = value };
+                expander.Delete += (_, _) =>
+                {
+                    Console.WriteLine("aaaaaaaa");
+                    if (DiarioEntrenamiento.TryGetValue(DateOnly.FromDateTime(Calendar.SelectedDate.Value),
+                            out var diaEntrenamiento)) diaEntrenamiento.Actividades.Remove(value);
+                    ActualizarActividadesMedidas();
+                };
+                return expander;
+            });
+        MedidasControl.MedidasModificadas += (_, medidas) => { };
     }
 
     public required DiarioEntrenamiento DiarioEntrenamiento
@@ -37,18 +50,18 @@ public partial class ActividadesView : UserControl
 
     private void ActualizarActividadesMedidas()
     {
-        Console.WriteLine("Actualizar actividades y medidas");
+        Debug.WriteLine("Actualizando actividades y medidas");
         ListaActividades.Items.Clear();
         var date = Calendar.SelectedDate ?? DateTime.Now;
         if (DiarioEntrenamiento.TryGetValue(DateOnly.FromDateTime(date), out var diaEntrenamiento))
         {
-            Console.WriteLine("Dia entrenamiento encontrado");
+            Debug.WriteLine("Existen datos para el dia seleccionado");
             foreach (var act in diaEntrenamiento.Actividades) ListaActividades.Items.Add(act);
             MedidasControl.Medidas = diaEntrenamiento.Medidas ?? new Medidas(0, 0, "");
         }
         else
         {
-            Console.WriteLine("Dia entrenamiento no encontrado");
+            Debug.WriteLine("No existen datos para el dia seleccionado");
             MedidasControl.Medidas = new Medidas(0, 0, "");
         }
     }
@@ -72,5 +85,21 @@ public partial class ActividadesView : UserControl
             ActualizarActividadesMedidas();
         };
         winActividades.Show();
+    }
+
+    private void MedidasControl_OnMedidasModificadas(object? sender, Medidas e)
+    {
+        if (Calendar.SelectedDate is null)
+            throw new NullReferenceException("Calendar.SelectedDate es null en GuardarMedidas");
+        var date = DateOnly.FromDateTime(Calendar.SelectedDate.Value);
+        if (DiarioEntrenamiento.TryGetValue(date, out var diaEntrenamiento))
+            diaEntrenamiento.Medidas = MedidasControl.Medidas;
+        else
+            DiarioEntrenamiento[date] = new DiaEntrenamiento
+            {
+                Actividades = new List<Actividad>(),
+                Medidas = MedidasControl.Medidas
+            };
+        Debug.WriteLine("Guardadas medidas para " + date + ": " + MedidasControl.Medidas);
     }
 }

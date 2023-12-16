@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DiarioNadador.GraficoMedidasUserControl">
+
+    <ScrollViewer>
+        <DockPanel>
+            <Calendar DockPanel.Dock="Right" SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                      VerticalAlignment="Top" Margin="10" Name="Calendar" DisplayMode="Year" />
+            <TabControl DockPanel.Dock="Left">
+                <TabItem Header="Circunferencia abdominal">
+                    <StackPanel Margin="0 50 0 0">
+                        <Canvas Name="chartCircunferencia" Width="800" Height="400" />
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="Peso">
+                    <StackPanel Margin="0 50 0 0">
+                        <Canvas Name="chartPeso" Width="800" Height="400" />
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </ScrollViewer>
+</UserControl>

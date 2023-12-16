@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:components="clr-namespace:DiarioNadador.Components"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DiarioNadador.Components.MedidasControl">
     <Grid ColumnDefinitions="Auto,5,*">
@@ -31,9 +30,10 @@
         </Grid>
         <Grid Grid.Column="2" RowDefinitions="50,10,50,10,200">
             <!-- Textboxes for Medidas -->
-            <NumericUpDown Grid.Row="0" Name="PesoTxt" />
-            <NumericUpDown Grid.Row="2" Name="CircunferenciaAbdominalTxt" />
-            <TextBox Grid.Row="4" Name="NotasTxt" AcceptsReturn="True" TextWrapping="Wrap" />
+            <NumericUpDown Grid.Row="0" LostFocus="OnMedidasModificadas" Name="PesoTxt" />
+            <NumericUpDown Grid.Row="2" LostFocus="OnMedidasModificadas" Name="CircunferenciaAbdominalTxt" />
+            <TextBox Grid.Row="4" LostFocus="OnMedidasModificadas" Name="NotasTxt" AcceptsReturn="True"
+                     TextWrapping="Wrap" />
         </Grid>
     </Grid>
 </UserControl>

@@ -27,7 +27,8 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Medidas">
-                    <components:MedidasControl Margin="10" Name="MedidasControl" />
+                    <components:MedidasControl Margin="10" Name="MedidasControl"
+                                               MedidasModificadas="MedidasControl_OnMedidasModificadas" />
                 </TabItem>
             </TabControl>
         </Panel>
