@@ -21,14 +21,7 @@ public partial class GraficoMedidasUserControl : UserControl
         InitializeComponent();
         DiarioEntrenamiento = diarioEntrenamiento;
         Calendar.SelectedDate = DateTime.Now;
-        try
-        {
-            CrearGrafico();
-        }
-        catch (Exception e)
-        {
-            
-        }
+        CrearGrafico();
     }
 
     public DiarioEntrenamiento DiarioEntrenamiento
