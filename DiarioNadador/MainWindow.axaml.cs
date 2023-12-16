@@ -18,11 +18,11 @@ public partial class MainWindow : Window
         InitializeComponent();
         Views = new ReadOnlyDictionary<string, UserControl>(new Dictionary<string, UserControl>
         {
-            { nameof(MenuViewListActividades), new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento } } //,
+            { nameof(MenuViewListActividades), new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento } },
             //{ nameof(MenuViewListCircuitos), },
             //{nameof(MenuViewListGraficaActividades), },
             //{ nameof(MenuViewListGraficaMedidas), },
-            //{ nameof(MenuViewListInformeAnual),  }
+            { nameof(MenuViewListInformeAnual), new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento } }
         });
 #if DEBUG
         this.AttachDevTools();
@@ -65,7 +65,13 @@ public partial class MainWindow : Window
             if (newSelected?.Name is null)
                 throw new NullReferenceException(
                     $"Menú seleccionado no válido, comprueba que está en el diccionario {nameof(Views)} en {nameof(MainWindow)} y que tiene un Name asignado");
-            MainViewContent.Content = Views[newSelected.Name];
+            //MainViewContent.Content = Views[newSelected.Name];
+            MainViewContent.Content = newSelected.Name switch
+            {
+                nameof(MenuViewListActividades) => new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento },
+                nameof(MenuViewListInformeAnual) => new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento },
+                _ => MainViewContent.Content
+            };
         }
         catch (Exception ex)
         {
