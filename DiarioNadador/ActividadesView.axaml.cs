@@ -16,7 +16,6 @@ public partial class ActividadesView : UserControl
         AvaloniaProperty.Register<ActividadesView, DiarioEntrenamiento>(
             nameof(DiarioEntrenamiento));
 
-
     public ActividadesView()
     {
         InitializeComponent();
@@ -36,6 +35,8 @@ public partial class ActividadesView : UserControl
             });
         MedidasControl.MedidasModificadas += (_, medidas) => { };
     }
+
+    public required Action SaveXml { get; init; }
 
     public required DiarioEntrenamiento DiarioEntrenamiento
     {
@@ -83,6 +84,7 @@ public partial class ActividadesView : UserControl
                 DiarioEntrenamiento.Add(args.Fecha,
                     new DiaEntrenamiento { Actividades = new List<Actividad> { args.Actividad } });
             ActualizarActividadesMedidas();
+            SaveXml();
         };
         winActividades.Show();
     }
@@ -100,6 +102,7 @@ public partial class ActividadesView : UserControl
                 Actividades = new List<Actividad>(),
                 Medidas = MedidasControl.Medidas
             };
+        SaveXml();
         Debug.WriteLine("Guardadas medidas para " + date + ": " + MedidasControl.Medidas);
     }
 }

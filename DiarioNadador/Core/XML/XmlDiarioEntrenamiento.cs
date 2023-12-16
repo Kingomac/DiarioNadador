@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -6,48 +7,37 @@ namespace DiarioNadador.Core.XML;
 
 public class XmlDiarioEntrenamiento
 {
-    private static readonly string RutaArchivoXml = "diarioEntrenamiento.xml";
+    public string RutaArchivoXml { get; init; } = "diarioEntrenamiento.xml";
 
-    public static void DiarioEntrenamientoToXml(DiarioEntrenamiento diario)
+    public void Save(DiarioEntrenamiento diario)
     {
-        try
-        {
-            var serializer = new XmlSerializer(typeof(DiarioEntrenamiento));
+        Debug.WriteLine("Guardando archivo XML");
+        var serializer = new XmlSerializer(typeof(DiarioEntrenamiento));
 
-            using (TextWriter writer = new StreamWriter(RutaArchivoXml))
-            {
-                serializer.Serialize(writer, diario);
-            }
-
-            Console.WriteLine($"Archivo XML guardado en: {Path.GetFullPath(RutaArchivoXml)}");
-        }
-        catch (Exception ex)
+        using (TextWriter writer = new StreamWriter(RutaArchivoXml))
         {
-            Console.WriteLine($"Error al crear el archivo XML: {ex.Message}");
-            Console.WriteLine(ex.StackTrace);
-            Console.WriteLine(ex.InnerException!.StackTrace);
+            serializer.Serialize(writer, diario);
         }
+
+        Console.WriteLine($"Archivo XML guardado en: {Path.GetFullPath(RutaArchivoXml)}");
     }
 
-    public static DiarioEntrenamiento XmlToDiarioEntrenamiento()
+    public DiarioEntrenamiento Load()
     {
-        try
-        {
-            if (File.Exists(RutaArchivoXml))
-            {
-                var serializer = new XmlSerializer(typeof(DiarioEntrenamiento));
+        Debug.WriteLine("Cargando archivo XML");
+        
+        var serializer = new XmlSerializer(typeof(DiarioEntrenamiento));
 
-                using (var fileStream = new FileStream(RutaArchivoXml, FileMode.Open))
-                {
-                    return (DiarioEntrenamiento)serializer.Deserialize(fileStream);
-                }
-            }
-        }
-        catch (Exception ex)
+        using (var fileStream = new FileStream(RutaArchivoXml, FileMode.Open))
         {
-            Console.WriteLine($"Error al cargar el diario de entrenamiento desde el archivo XML: {ex.Message}");
+            return (DiarioEntrenamiento)(serializer.Deserialize(fileStream) ??
+                                         throw new NullReferenceException(
+                                             "No se ha podido deserializar el archivo XML"));
         }
-
-        return new DiarioEntrenamiento();
+    }
+    
+    public DiarioEntrenamiento LoadIfExists()
+    {
+        return !File.Exists(RutaArchivoXml) ? new DiarioEntrenamiento() : Load();
     }
 }
