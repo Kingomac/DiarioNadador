@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using DiarioNadador.Components;
 using DiarioNadador.Core;
 using DiarioNadador.Core.XML;
 
@@ -18,10 +19,13 @@ public partial class MainWindow : Window
         InitializeComponent();
         Views = new ReadOnlyDictionary<string, UserControl>(new Dictionary<string, UserControl>
         {
-            { nameof(MenuViewListActividades), new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento } } ,
+            { nameof(MenuViewListActividades), new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento } },
             //{ nameof(MenuViewListCircuitos), },
             //{nameof(MenuViewListGraficaActividades), },
-            { nameof(MenuViewListGraficaMedidas), new GraficoMedidasUserControl { DiarioEntrenamiento = _diarioEntrenamiento } } //,
+            {
+                nameof(MenuViewListGraficaMedidas),
+                new GraficoMedidasUserControl { DiarioEntrenamiento = _diarioEntrenamiento }
+            } //,
             //{ nameof(MenuViewListInformeAnual),  }
         });
 #if DEBUG

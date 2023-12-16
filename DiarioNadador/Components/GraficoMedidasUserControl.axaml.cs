@@ -1,21 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using System.Linq;
-
-using medidas.Core;
-using Avalonia.Media;
 using Avalonia.Controls.Shapes;
+using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using DiarioNadador.Core;
 
 namespace DiarioNadador.Components;
 
 public partial class GraficoMedidasUserControl : UserControl
 {
     public static readonly StyledProperty<DiarioEntrenamiento> DiarioEntrenamientoProperty =
-    AvaloniaProperty.Register<GraficoMedidasUserControl, DiarioEntrenamiento>(
-        nameof(DiarioEntrenamiento));
+        AvaloniaProperty.Register<GraficoMedidasUserControl, DiarioEntrenamiento>(
+            nameof(DiarioEntrenamiento));
+
+    public GraficoMedidasUserControl()
+    {
+        InitializeComponent();
+        Calendar.SelectedDate = DateTime.Now;
+        CrearGrafico();
+    }
 
     public required DiarioEntrenamiento DiarioEntrenamiento
     {
@@ -23,13 +29,7 @@ public partial class GraficoMedidasUserControl : UserControl
         set => SetValue(DiarioEntrenamientoProperty, value);
     }
 
-    public GraficoMedidasUserControl()
-    {
-        InitializeComponent();
-        CrearGrafico();
-    }
-
-    void InitializeComponent()
+    private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
     }
@@ -38,49 +38,51 @@ public partial class GraficoMedidasUserControl : UserControl
     {
         //List<Medidas> medidas = DiarioEntrenamiento.medidas();
         //medidas = medidas.OrderBy(m => m.Fecha).ToList();
-        var queries = new SearchQueries(DiarioEntrenamiento);
-        queries.GetMedidas(ano, mes);
+        var queries = new SearchQueries { DiarioEntrenamiento = DiarioEntrenamiento };
+        var ano = Calendar.SelectedDate.Value.Year;
+        var mes = Calendar.SelectedDate.Value.Month;
+        var medidas = queries.GetMedidas(ano, mes);
         var totalDias = DateTime.DaysInMonth(ano, mes);
 
         foreach (var medida in medidas)
-        {
-            Console.WriteLine($"Peso: {medida.Peso}, Circunferencia: {medida.CircunferenciaAbdominal}, Notas: {medida.Notas}");
-        }
+            Console.WriteLine(
+                $"Peso: {medida.Peso}, Circunferencia: {medida.CircunferenciaAbdominal}, Notas: {medida.Notas}");
 
-        if (medidas.Count > 0)
+        if (medidas.Length > 0)
         {
             var chartCircunferencia = this.FindControl<Canvas>("chartCircunferencia");
             var chartPeso = this.FindControl<Canvas>("chartPeso");
             var dates = medidas.Select(m => m.Fecha.ToString("yyyy-MM-dd"));
-            
+
             // Dibujar líneas en el chartCircunferencia
             DibujarEjes(chartCircunferencia, dates, chartCircunferencia.Width, chartCircunferencia.Height);
             DibujarLineas(chartCircunferencia, medidas.Select(m => m.CircunferenciaAbdominal));
-            
+
             // Dibujar líneas en el chartPesos
             DibujarEjes(chartPeso, dates, chartPeso.Width, chartPeso.Height);
             DibujarLineas(chartPeso, medidas.Select(p => p.Peso));
         }
     }
+
     private void DibujarEjes(Canvas canvas, IEnumerable<string> dates, double width, double height)
     {
         var ejes = new Polyline
         {
             Stroke = Brushes.Black,
-            StrokeThickness = 2,    
+            StrokeThickness = 2
         };
 
         ejes.Points = new Points
         {
-            new Point(0,0),
-            new Point(0,height),
-            new Point(width, height)
+            new(0, 0),
+            new(0, height),
+            new(width, height)
         };
-        
+
         canvas.Children.Add(ejes);
 
-        
-        for (int i = 0; i < dates.Count(); i++)
+
+        for (var i = 0; i < dates.Count(); i++)
         {
             var textBlock = new TextBlock
             {
@@ -93,13 +95,13 @@ public partial class GraficoMedidasUserControl : UserControl
         }
 
         double minValue = 0;
-        double maxValue = 100; 
+        double maxValue = 100;
         double interval = 20;
-        double distanciaY = height / 5;
-        
-        for (int i = 0; i <= 5; i++)
+        var distanciaY = height / 5;
+
+        for (var i = 0; i <= 5; i++)
         {
-            double valor = i * interval;
+            var valor = i * interval;
             var textBlock = new TextBlock
             {
                 Text = valor + " ",
@@ -112,19 +114,16 @@ public partial class GraficoMedidasUserControl : UserControl
 
     private void DibujarLineas(Canvas canvas, IEnumerable<double> values)
     {
-        List<Point> puntos = ObtenerPuntos(values, canvas.Width, canvas.Height);
-        
+        var puntos = ObtenerPuntos(values, canvas.Width, canvas.Height);
+
         var polyline = new Polyline
         {
             Stroke = Brushes.Black,
-            StrokeThickness = 2,    
+            StrokeThickness = 2
         };
 
-        foreach (var punto in puntos)
-        {
-            polyline.Points.Add(punto);
-        }
-        
+        foreach (var punto in puntos) polyline.Points.Add(punto);
+
         canvas.Children.Add(polyline);
     }
 
@@ -133,13 +132,13 @@ public partial class GraficoMedidasUserControl : UserControl
         var points = new List<Point>();
         var count = 0;
 
-        double distanciaX = width / (values.Count() - 1);
-        double distanciaY = height / 5;
-        
+        var distanciaX = width / (values.Count() - 1);
+        var distanciaY = height / 5;
+
         foreach (var value in values)
         {
             var x = count * distanciaX;
-            var y = height - (value/20) * distanciaY;
+            var y = height - value / 20 * distanciaY;
 
             points.Add(new Point(x, y));
             count++;

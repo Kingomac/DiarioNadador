@@ -5,13 +5,24 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DiarioNadador.Components.GraficoMedidasUserControl">
 
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="Gráfico Circunferencia Abdominal(cms.)"/>
-            <Canvas Name="chartCircunferencia" Width="1000" Height="250"/>
+    <ScrollViewer>
+        <DockPanel>
+            <Calendar DockPanel.Dock="Right" Margin="10" Name="Calendar" DisplayMode="Year" />
+            <TabControl DockPanel.Dock="Left">
+                <TabItem Header="Circunferencia abdominal">
+                    <StackPanel>
+                        <TextBlock Text="Gráfico Circunferencia Abdominal(cms.)" />
+                        <Canvas Name="chartCircunferencia" Width="1000" Height="250" />
+                    </StackPanel>
+                </TabItem>
 
-            <TextBlock Text="Gráfico Peso (Kg)" Margin="0,50,0,0"/>
-            <Canvas Name="chartPeso" Width="1000" Height="250" Margin="0,0,0,100"/>
-        </StackPanel>
-    </Grid>
+                <TabItem Header="Peso">
+                    <StackPanel>
+                        <TextBlock Text="Gráfico Peso (Kg)" Margin="0,50,0,0" />
+                        <Canvas Name="chartPeso" Width="1000" Height="250" Margin="0,0,0,100" />
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </ScrollViewer>
 </UserControl>
