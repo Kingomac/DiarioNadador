@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using DiarioNadador.Components;
 using DiarioNadador.Core;
 using DiarioNadador.Core.XML;
 
@@ -60,11 +59,11 @@ public partial class MainWindow : Window
             if (newSelected?.Name is null)
                 throw new NullReferenceException(
                     $"Menú seleccionado no válido, comprueba que está en el diccionario {nameof(Views)} en {nameof(MainWindow)} y que tiene un Name asignado");
-            //MainViewContent.Content = Views[newSelected.Name];
             MainViewContent.Content = newSelected.Name switch
             {
                 nameof(MenuViewListActividades) => new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento },
                 nameof(MenuViewListInformeAnual) => new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento },
+                nameof(MenuViewListGraficaMedidas) => new GraficoMedidasUserControl(_diarioEntrenamiento),
                 _ => MainViewContent.Content
             };
         }

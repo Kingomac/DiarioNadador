@@ -25,7 +25,11 @@
             <SubType>Code</SubType>
         </Compile>
         <Compile Update="InformeAnualView.axaml.cs">
-          <DependentUpon>InformeAnualView.axaml</DependentUpon>
+            <DependentUpon>InformeAnualView.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="GraficoMedidasUserControl.axaml.cs">
+            <DependentUpon>GraficoMedidasUserControl.axaml</DependentUpon>
+            <SubType>Code</SubType>
         </Compile>
     </ItemGroup>
 </Project>

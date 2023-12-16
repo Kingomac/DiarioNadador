@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="Components/GraficoMedidasUserControl.axaml" value="DiarioNadador.csproj" />
+        <entry key="InformeAnualView.axaml" value="DiarioNadador.csproj" />
         <entry key="MainWindow.axaml" value="DiarioNadador.csproj" />
       </map>
     </option>

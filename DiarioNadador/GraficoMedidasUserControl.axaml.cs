@@ -8,7 +8,7 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using DiarioNadador.Core;
 
-namespace DiarioNadador.Components;
+namespace DiarioNadador;
 
 public partial class GraficoMedidasUserControl : UserControl
 {
@@ -16,17 +16,30 @@ public partial class GraficoMedidasUserControl : UserControl
         AvaloniaProperty.Register<GraficoMedidasUserControl, DiarioEntrenamiento>(
             nameof(DiarioEntrenamiento));
 
-    public GraficoMedidasUserControl()
+    public GraficoMedidasUserControl(DiarioEntrenamiento diarioEntrenamiento)
     {
         InitializeComponent();
+        DiarioEntrenamiento = diarioEntrenamiento;
         Calendar.SelectedDate = DateTime.Now;
-        CrearGrafico();
+        try
+        {
+            CrearGrafico();
+        }
+        catch (Exception e)
+        {
+            
+        }
     }
 
-    public required DiarioEntrenamiento DiarioEntrenamiento
+    public DiarioEntrenamiento DiarioEntrenamiento
     {
         get => GetValue(DiarioEntrenamientoProperty);
-        set => SetValue(DiarioEntrenamientoProperty, value);
+        set
+        {
+            if (value is null) Console.WriteLine("set DiarioEntrenamiento es nulo 1");
+            else Console.WriteLine("set DiarioEntrenamiento no es nulo 1");
+            SetValue(DiarioEntrenamientoProperty, value);
+        }
     }
 
 
