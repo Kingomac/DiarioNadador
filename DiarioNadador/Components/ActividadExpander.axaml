@@ -18,19 +18,19 @@
             </StackPanel.Styles>
             <Grid ColumnDefinitions="25,4,*,1,*" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                   Margin="15,2,15,0">
-                <Grid RowDefinitions="50,1,50,1,50,1,50">
+                <Grid RowDefinitions="50,1,50,1,50*,1,50">
                     <PathIcon Data="{StaticResource IconDistanciaActividad}" />
                     <PathIcon Grid.Row="2" Data="{StaticResource IconDuracionActividad}" />
                     <PathIcon Grid.Row="4" Data="{StaticResource IconNotas}" />
                     <PathIcon Grid.Row="6" Data="{StaticResource IconLugar}" />
                 </Grid>
-                <Grid Grid.Column="2" RowDefinitions="50,1,50,1,50,1,50">
+                <Grid Grid.Column="2" RowDefinitions="50,1,50,1,50*,1,50">
                     <TextBlock TextWrapping="Wrap">Distancia recorrida</TextBlock>
                     <TextBlock Grid.Row="2">Duración</TextBlock>
                     <TextBlock Grid.Row="4"> Notas</TextBlock>
                     <TextBlock Grid.Row="6">Lugar</TextBlock>
                 </Grid>
-                <Grid Grid.Column="4" RowDefinitions="50,1,50,1,50,1,50">
+                <Grid Grid.Column="4" RowDefinitions="50,1,50,1,50*,1,50">
                     <Grid.Styles>
                         <Style Selector="TextBlock">
                             <Setter Property="TextAlignment" Value="Right" />
