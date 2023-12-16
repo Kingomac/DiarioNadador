@@ -65,7 +65,8 @@
         </SplitView.Pane>
         <TransitioningContentControl Name="MainViewContent">
             <TransitioningContentControl.PageTransition>
-                <CrossFade Duration="0:0:0.35" />
+                <!--<CrossFade Duration="0:0:0.35" />-->
+                <Rotate3DTransition Duration="0:0:0.5" />
             </TransitioningContentControl.PageTransition>
         </TransitioningContentControl>
     </SplitView>

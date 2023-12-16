@@ -7,17 +7,18 @@
 
     <ScrollViewer>
         <DockPanel>
-            <Calendar DockPanel.Dock="Right" Margin="10" Name="Calendar" DisplayMode="Year" />
+            <Calendar DockPanel.Dock="Right" SelectedDatesChanged="Calendar_OnSelectedDatesChanged"
+                      VerticalAlignment="Top" Margin="10" Name="Calendar" DisplayMode="Year" />
             <TabControl DockPanel.Dock="Left">
                 <TabItem Header="Circunferencia abdominal">
-                    <StackPanel>
+                    <StackPanel Margin="0 50 0 0">
                         <Canvas Name="chartCircunferencia" Width="800" Height="400" />
                     </StackPanel>
                 </TabItem>
 
                 <TabItem Header="Peso">
-                    <StackPanel>
-                        <Canvas Name="chartPeso" Width="800" Height="400" Margin="0,0,0,100" />
+                    <StackPanel Margin="0 50 0 0">
+                        <Canvas Name="chartPeso" Width="800" Height="400" />
                     </StackPanel>
                 </TabItem>
             </TabControl>

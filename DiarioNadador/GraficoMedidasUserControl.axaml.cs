@@ -4,7 +4,6 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
-using Avalonia.Interactivity;
 using Avalonia.Media;
 using DiarioNadador.Core;
 
@@ -51,8 +50,10 @@ public partial class GraficoMedidasUserControl : UserControl
 
         if (medidas.Length > 0)
         {
-            var chartCircunferencia = this.FindControl<Canvas>("chartCircunferencia");
-            var chartPeso = this.FindControl<Canvas>("chartPeso");
+            //var chartCircunferencia = this.FindControl<Canvas>("chartCircunferencia");
+            //var chartPeso = this.FindControl<Canvas>("chartPeso");
+            chartCircunferencia.Children.Clear();
+            chartPeso.Children.Clear();
             var dates = Enumerable.Range(1, totalDias).Select(i => i.ToString());
 
             // Dibujar líneas en el chartCircunferencia
@@ -148,7 +149,8 @@ public partial class GraficoMedidasUserControl : UserControl
         return points;
     }
 
-    private void Control_OnLoaded(object? sender, RoutedEventArgs e)
+    private void Calendar_OnSelectedDatesChanged(object? sender, SelectionChangedEventArgs e)
     {
+        CrearGrafico();
     }
 }
