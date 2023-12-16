@@ -22,7 +22,18 @@ public partial class ActividadesView : UserControl
         InitializeComponent();
 
         ListaActividades.ItemTemplate =
-            new FuncDataTemplate<Actividad>((value, _) => new ActividadExpander { Actividad = value });
+            new FuncDataTemplate<Actividad>((value, _) =>
+            {
+                var expander = new ActividadExpander { Actividad = value };
+                expander.Delete += (_, _) =>
+                {
+                    Console.WriteLine("aaaaaaaa");
+                    if (DiarioEntrenamiento.TryGetValue(DateOnly.FromDateTime(Calendar.SelectedDate.Value),
+                            out var diaEntrenamiento)) diaEntrenamiento.Actividades.Remove(value);
+                    ActualizarActividadesMedidas();
+                };
+                return expander;
+            });
         MedidasControl.MedidasModificadas += (_, medidas) => { };
     }
 

@@ -56,7 +56,7 @@
                             <Setter Property="Background" Value="DarkGray" />
                         </Style>
                     </StackPanel.Styles>
-                    <Button>
+                    <Button Click="DeleteBtn_OnClick">
                         <ToolTip.Tip>
                             <TextBlock Text="Borrar actividad" />
                         </ToolTip.Tip>
