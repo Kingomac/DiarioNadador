@@ -14,7 +14,7 @@ public partial class GraficoMedidasUserControl : UserControl
 {
     public static readonly StyledProperty<DiarioEntrenamiento> DiarioEntrenamientoProperty =
         AvaloniaProperty.Register<GraficoMedidasUserControl, DiarioEntrenamiento>(
-            "DiarioEntrenamiento");
+            nameof(DiarioEntrenamiento));
 
     public GraficoMedidasUserControl()
     {
@@ -23,7 +23,7 @@ public partial class GraficoMedidasUserControl : UserControl
         CrearGrafico();
     }
 
-    public DiarioEntrenamiento DiarioEntrenamiento
+    public required DiarioEntrenamiento DiarioEntrenamiento
     {
         get => GetValue(DiarioEntrenamientoProperty);
         set => SetValue(DiarioEntrenamientoProperty, value);
