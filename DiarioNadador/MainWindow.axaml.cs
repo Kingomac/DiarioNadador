@@ -17,6 +17,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        if (_diarioEntrenamiento is null) Console.WriteLine("DiarioEntrenamiento es nulo 1");
+        else Console.WriteLine("DiarioEntrenamiento no es nulo 1");
         Views = new ReadOnlyDictionary<string, UserControl>(new Dictionary<string, UserControl>
         {
             { nameof(MenuViewListActividades), new ActividadesView { DiarioEntrenamiento = _diarioEntrenamiento } },

@@ -4,7 +4,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
-using Avalonia.Markup.Xaml;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using DiarioNadador.Core;
 
@@ -14,7 +14,7 @@ public partial class GraficoMedidasUserControl : UserControl
 {
     public static readonly StyledProperty<DiarioEntrenamiento> DiarioEntrenamientoProperty =
         AvaloniaProperty.Register<GraficoMedidasUserControl, DiarioEntrenamiento>(
-            nameof(DiarioEntrenamiento));
+            "DiarioEntrenamiento");
 
     public GraficoMedidasUserControl()
     {
@@ -23,25 +23,20 @@ public partial class GraficoMedidasUserControl : UserControl
         CrearGrafico();
     }
 
-    public required DiarioEntrenamiento DiarioEntrenamiento
+    public DiarioEntrenamiento DiarioEntrenamiento
     {
         get => GetValue(DiarioEntrenamientoProperty);
         set => SetValue(DiarioEntrenamientoProperty, value);
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
 
     private void CrearGrafico()
     {
         //List<Medidas> medidas = DiarioEntrenamiento.medidas();
         //medidas = medidas.OrderBy(m => m.Fecha).ToList();
-        var queries = new SearchQueries { DiarioEntrenamiento = DiarioEntrenamiento };
         var ano = Calendar.SelectedDate.Value.Year;
         var mes = Calendar.SelectedDate.Value.Month;
-        var medidas = queries.GetMedidas(ano, mes);
+        var medidas = new SearchQueries { DiarioEntrenamiento = DiarioEntrenamiento }.GetMedidas(ano, mes);
         var totalDias = DateTime.DaysInMonth(ano, mes);
 
         foreach (var medida in medidas)
@@ -52,7 +47,7 @@ public partial class GraficoMedidasUserControl : UserControl
         {
             var chartCircunferencia = this.FindControl<Canvas>("chartCircunferencia");
             var chartPeso = this.FindControl<Canvas>("chartPeso");
-            var dates = medidas.Select(m => m.Fecha.ToString("yyyy-MM-dd"));
+            var dates = Enumerable.Range(1, totalDias).Select(i => i.ToString());
 
             // Dibujar líneas en el chartCircunferencia
             DibujarEjes(chartCircunferencia, dates, chartCircunferencia.Width, chartCircunferencia.Height);
@@ -145,5 +140,9 @@ public partial class GraficoMedidasUserControl : UserControl
         }
 
         return points;
+    }
+
+    private void Control_OnLoaded(object? sender, RoutedEventArgs e)
+    {
     }
 }
