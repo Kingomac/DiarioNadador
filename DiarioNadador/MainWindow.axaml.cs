@@ -32,7 +32,11 @@ public partial class MainWindow : Window
             },
             nameof(MenuViewListInformeAnual) => new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento },
             nameof(MenuViewListGraficaMedidas) => new GraficoMedidasUserControl(_diarioEntrenamiento),
+            nameof(MenuViewListGraficaActividades) => new GraficoActividadesUserControl(_diarioEntrenamiento),
             _ => MainViewContent.Content
         };
     }
+    
+    
+
 }
