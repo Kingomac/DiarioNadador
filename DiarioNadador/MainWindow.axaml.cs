@@ -18,6 +18,7 @@ public partial class MainWindow : Window
 #if DEBUG
         this.AttachDevTools();
 #endif
+        MainViewContent.Content = new CircuitosView();
     }
 
     private void MenuViewList_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -32,6 +33,7 @@ public partial class MainWindow : Window
             },
             nameof(MenuViewListInformeAnual) => new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento },
             nameof(MenuViewListGraficaMedidas) => new GraficoMedidasUserControl(_diarioEntrenamiento),
+            nameof(MenuViewListCircuitos) => new CircuitosView(),
             _ => MainViewContent.Content
         };
     }

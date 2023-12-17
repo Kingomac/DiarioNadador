@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DiarioNadador.CircuitosView">
+    <DockPanel>
+        <Panel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="300"
+               DockPanel.Dock="Left">
+            <TabControl VerticalAlignment="Stretch">
+                <TabItem Header="Añadir Circuito">
+                    <!-- Aquí se añadirán nuevos circuitos -->
+                    <StackPanel Margin="10">
+                        <TextBox Name="DistanciaTextBox" Watermark="Distancia (km)" Margin="5" />
+                        <TextBox Name="LugarTextBox" Watermark="Lugar" Margin="5" />
+                        <TextBox Name="NotasTextBox" Watermark="Notas" Margin="5" />
+                        <TextBox Name="UrlGoogleMapsTextBox" Watermark="URL Google Maps" Margin="5" />
+                        <Button Content="Añadir Circuito" Margin="5" Name="BtGuardar" />
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Listar Circuitos">
+                    <Grid>
+                        <ListBox x:Name="listBoxCircuitos" SelectionMode="Single"
+                                 VerticalAlignment="Top" />
+
+                        <Button Content="Eliminar Circuito" Name="BtEliminar"
+                                Click="BtEliminar_Click"
+                                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                Margin="10" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Panel>
+    </DockPanel>
+</UserControl>

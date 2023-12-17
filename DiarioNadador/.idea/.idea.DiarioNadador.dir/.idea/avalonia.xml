@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="ActividadesView.axaml" value="DiarioNadador.csproj" />
+        <entry key="CircuitosView.axaml" value="DiarioNadador.csproj" />
         <entry key="Components/ActividadExpander.axaml" value="DiarioNadador.csproj" />
         <entry key="Components/Confirmacion.axaml" value="DiarioNadador.csproj" />
         <entry key="Components/GraficoMedidasUserControl.axaml" value="DiarioNadador.csproj" />
