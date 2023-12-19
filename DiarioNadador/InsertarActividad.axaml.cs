@@ -48,11 +48,12 @@ public partial class InsertarActividad : Window
         }, RoutingStrategies.Tunnel);
 
         //Escribe el circuito
-        var edCircuito = this.FindControl<TextBox>("edCircuito");
-        edCircuito.AddHandler(PointerPressedEvent, (sender, e) =>
+        var comboCircuitos = this.FindControl<ComboBox>("edCircuitos");
+        var listaCircuitos = Core.XML.XmlCircuito.XmlToCircuitos();
+        foreach (var circuito in listaCircuitos)
         {
-            if (e.ClickCount == 1) edCircuito.Text = "";
-        }, RoutingStrategies.Tunnel);
+            comboCircuitos.Items.Add(new ComboBoxItem { Content = circuito.Lugar });
+        }
     }
 
     public event EventHandler<InsertarActividadEventArgs> Insertar
@@ -65,7 +66,7 @@ public partial class InsertarActividad : Window
     {
         var tiempoStr = this.FindControl<TextBox>("edTiempo").Text;
         var distanciaStr = this.FindControl<TextBox>("edDistancia").Text;
-        var circuitoStr = this.FindControl<TextBox>("edCircuito").Text;
+        var circuitoStr = this.FindControl<ComboBox>("edCircuito").ToString();
         var notas = this.FindControl<TextBox>("edNotas").Text;
 
         if (!TimeSpan.TryParse(tiempoStr, out var tiempo))

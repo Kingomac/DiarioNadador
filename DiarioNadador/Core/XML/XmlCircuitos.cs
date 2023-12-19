@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace DiarioNadador.Core.XML;
@@ -33,6 +34,7 @@ public class XmlCircuito
             Console.WriteLine($"Error al crear el archivo XML: {ex.Message}");
         }
     }
+    
 
     public static List<Circuito> XmlToCircuitos()
     {
