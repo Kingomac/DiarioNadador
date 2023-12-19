@@ -59,6 +59,7 @@ public class SearchQueries
 
         return pesos;
     }
+
     public Actividad[] GetActividades(int ano, int mes)
     {
         var totalDias = DateTime.DaysInMonth(ano, mes);
@@ -77,5 +78,4 @@ public class SearchQueries
 
         return toret;
     }
-    
 }
