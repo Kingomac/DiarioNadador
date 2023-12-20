@@ -60,6 +60,11 @@ public partial class CircuitosView : UserControl
     private void OnGuardarCircuito()
     {
         var distanciaTexto = this.FindControl<TextBox>("DistanciaTextBox").Text;
+        var lugarTexto = this.FindControl<TextBox>("LugarTextBox").Text;
+        var notasTexto = this.FindControl<TextBox>("NotasTextBox").Text;
+        var urlGoogleMapsTexto = this.FindControl<TextBox>("UrlGoogleMapsTextBox").Text;
+
+        // Validación para la distancia
         if (!EsDistanciaValida(distanciaTexto))
         {
             var dialog = new DialogWindow("Por favor, introduzca un número válido para la distancia.");
@@ -67,16 +72,25 @@ public partial class CircuitosView : UserControl
             return;
         }
 
+        if (string.IsNullOrWhiteSpace(lugarTexto) ||
+            string.IsNullOrWhiteSpace(notasTexto) ||
+            string.IsNullOrWhiteSpace(urlGoogleMapsTexto))
+        {
+            var dialog = new DialogWindow("Por favor, complete todos los campos.");
+            dialog.ShowDialog(GetWindow());
+            return;
+        }
+        
         var nuevoCircuito = new Circuito(
-            double.Parse(this.FindControl<TextBox>("DistanciaTextBox").Text),
-            this.FindControl<TextBox>("LugarTextBox").Text,
-            this.FindControl<TextBox>("NotasTextBox").Text,
-            this.FindControl<TextBox>("UrlGoogleMapsTextBox").Text
+            double.Parse(distanciaTexto),
+            lugarTexto,
+            notasTexto,
+            urlGoogleMapsTexto
         );
 
         ShowSelfClosingDialog("Circuito guardado exitosamente.", 1500);
         ListaDeCircuitos.Add(nuevoCircuito);
-        XmlCircuito.CircuitosToXml(nuevoCircuito);
+        Core.XML.XmlCircuito.CircuitosToXml(nuevoCircuito);
 
         this.FindControl<TextBox>("DistanciaTextBox").Text = "";
         this.FindControl<TextBox>("LugarTextBox").Text = "";
