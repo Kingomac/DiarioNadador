@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace DiarioNadador.Core.XML;
@@ -9,11 +11,10 @@ public class XmlCircuito
 {
     private static readonly string RutaArchivoXml = "circuitos.xml";
 
-    public static void CircuitosToXml(double distancia, string lugar, string notas, string urlMapa)
+    public static void CircuitosToXml(Circuito nuevoCircuito)
     {
         try
         {
-            var nuevoCircuito = new Circuito(distancia, lugar, notas, urlMapa);
 
             var listaCircuitos = XmlToCircuitos();
 
@@ -54,5 +55,34 @@ public class XmlCircuito
         }
 
         return new List<Circuito>();
+    }
+
+    public static void EliminarCircuitoDelXml(double distancia, string lugar)
+    {
+        try
+        {
+            var listaCircuitos = XmlToCircuitos();
+
+            var circuitoAEliminar = listaCircuitos.FirstOrDefault(c => c.Distancia == distancia && c.Lugar == lugar);
+            if (circuitoAEliminar != null)
+            {
+                listaCircuitos.Remove(circuitoAEliminar);
+
+                var serializer = new XmlSerializer(typeof(List<Circuito>));
+                using (TextWriter writer = new StreamWriter(RutaArchivoXml))
+                {
+                    serializer.Serialize(writer, listaCircuitos);
+                }
+                Console.WriteLine("Circuito eliminado con éxito.");
+            }
+            else
+            {
+                Console.WriteLine("Circuito no encontrado para eliminar.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al eliminar el circuito del archivo XML: {ex.Message}");
+        }
     }
 }
