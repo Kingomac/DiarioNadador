@@ -5,8 +5,10 @@
       <map>
         <entry key="ActividadesView.axaml" value="DiarioNadador.csproj" />
         <entry key="App.axaml" value="DiarioNadador.csproj" />
+        <entry key="CircuitosView.axaml" value="DiarioNadador.csproj" />
         <entry key="Components/ActividadExpander.axaml" value="DiarioNadador.csproj" />
         <entry key="Components/Confirmacion.axaml" value="DiarioNadador.csproj" />
+        <entry key="Components/Dialog.axaml" value="DiarioNadador.csproj" />
         <entry key="Components/GraficoMedidasUserControl.axaml" value="DiarioNadador.csproj" />
         <entry key="GraficoMedidasUserControl.axaml" value="DiarioNadador.csproj" />
         <entry key="InformeAnualView.axaml" value="DiarioNadador.csproj" />

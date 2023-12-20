@@ -31,5 +31,8 @@
             <DependentUpon>GraficoMedidasUserControl.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Compile Update="CircuitosView.cs">
+            <DependentUpon>CircuitosView.axaml</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>

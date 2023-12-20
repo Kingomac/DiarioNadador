@@ -1,0 +1,12 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="DiarioNadador.Components.DialogWindow"
+        Width="300" Height="150"
+        CanResize="False"
+        Title="Error"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Name="MessageTextBlock" TextWrapping="Wrap" Margin="10" HorizontalAlignment="Center" />
+        <Button Content="OK" HorizontalAlignment="Center" Margin="10" Click="Close_Click" />
+    </StackPanel>
+</Window>
