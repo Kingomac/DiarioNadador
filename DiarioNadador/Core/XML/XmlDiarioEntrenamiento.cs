@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace DiarioNadador.Core.XML;
@@ -13,29 +14,44 @@ public class XmlDiarioEntrenamiento
     {
         Debug.WriteLine("Guardando archivo XML");
         var serializer = new XmlSerializer(typeof(DiarioEntrenamiento));
-
-        using (TextWriter writer = new StreamWriter(RutaArchivoXml))
+        try
         {
-            serializer.Serialize(writer, diario);
-        }
+            using (TextWriter writer = new StreamWriter(RutaArchivoXml))
+            {
+                serializer.Serialize(writer, diario);
+            }
 
-        Console.WriteLine($"Archivo XML guardado en: {Path.GetFullPath(RutaArchivoXml)}");
+            Debug.WriteLine($"Archivo XML guardado en: {Path.GetFullPath(RutaArchivoXml)}");
+        }
+        catch (XmlException e)
+        {
+            throw new XmlFileException(e)
+                { FilePath = Path.GetFullPath(RutaArchivoXml), OperationType = XmlFileException.Operation.Save };
+        }
     }
 
     public DiarioEntrenamiento Load()
     {
         Debug.WriteLine("Cargando archivo XML");
-        
+
         var serializer = new XmlSerializer(typeof(DiarioEntrenamiento));
 
-        using (var fileStream = new FileStream(RutaArchivoXml, FileMode.Open))
+        try
         {
-            return (DiarioEntrenamiento)(serializer.Deserialize(fileStream) ??
-                                         throw new NullReferenceException(
-                                             "No se ha podido deserializar el archivo XML"));
+            using (var fileStream = new FileStream(RutaArchivoXml, FileMode.Open))
+            {
+                return (DiarioEntrenamiento)(serializer.Deserialize(fileStream) ??
+                                             throw new XmlException(
+                                                 "No se ha podido deserializar el archivo XML"));
+            }
+        }
+        catch (Exception e)
+        {
+            throw new XmlFileException(e)
+                { FilePath = Path.GetFullPath(RutaArchivoXml), OperationType = XmlFileException.Operation.Load };
         }
     }
-    
+
     public DiarioEntrenamiento LoadIfExists()
     {
         return !File.Exists(RutaArchivoXml) ? new DiarioEntrenamiento() : Load();

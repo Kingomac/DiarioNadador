@@ -3,9 +3,9 @@ using System.Text;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
-using Avalonia.Threading;
 using DiarioNadador.Core;
 
 namespace DiarioNadador;
@@ -16,11 +16,6 @@ public partial class InformeAnualView : UserControl
     private const int FilasY = 10;
     private const int ValorFila = 15;
 
-    private IImmutableSolidColorBrush _colorMaya = new ImmutableSolidColorBrush(Colors.Black);
-    
-    private IImmutableSolidColorBrush _colorDatos = new ImmutableSolidColorBrush(Colors.Blue);
-    private IImmutableSolidColorBrush _colorLabel = new ImmutableSolidColorBrush(Colors.Blue);
-
     private static readonly string[] Meses =
         { "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" };
 
@@ -28,11 +23,14 @@ public partial class InformeAnualView : UserControl
         AvaloniaProperty.Register<InformeAnualView, DiarioEntrenamiento>(
             nameof(DiarioEntrenamiento));
 
+    private readonly IImmutableSolidColorBrush _colorMaya = new ImmutableSolidColorBrush(Colors.Black);
+
+    private IImmutableSolidColorBrush _colorDatos = new ImmutableSolidColorBrush(Colors.Blue);
+    private IImmutableSolidColorBrush _colorLabel = new ImmutableSolidColorBrush(Colors.Blue);
+
     public InformeAnualView()
     {
         InitializeComponent();
-        Calendario.SelectedDate = DateTime.Now;
-        ActualizarGraficos();
 
         ColorDatos.ColorChanged += ActualizarColor;
         ColorLabel.ColorChanged += ActualizarColor;
@@ -199,17 +197,11 @@ public partial class InformeAnualView : UserControl
     {
         if (sender is ColorPicker selec)
         {
-            if (selec.Name.Equals("ColorDatos"))
-            {
-                _colorDatos = new ImmutableSolidColorBrush(e.NewColor);
-            }
-            
-            if (selec.Name.Equals("ColorLabel"))
-            {
-                _colorLabel = new ImmutableSolidColorBrush(e.NewColor);
-            }
+            if (selec.Name.Equals("ColorDatos")) _colorDatos = new ImmutableSolidColorBrush(e.NewColor);
+
+            if (selec.Name.Equals("ColorLabel")) _colorLabel = new ImmutableSolidColorBrush(e.NewColor);
         }
-        
+
         ActualizarGraficos();
     }
 
@@ -218,20 +210,23 @@ public partial class InformeAnualView : UserControl
         ActualizarGraficos();
     }
 
-    private void ActualizarGraficos()
+    private async void ActualizarGraficos()
     {
-        Dispatcher.UIThread.Post(() =>
-        {
-            var pesos =
-                new SearchQueries { DiarioEntrenamiento = DiarioEntrenamiento }.GetPesos(Calendario.SelectedDate!.Value
-                    .Year);
-            Text(Meses, pesos);
+        var pesos =
+            new SearchQueries { DiarioEntrenamiento = DiarioEntrenamiento }.GetPesos(Calendario.SelectedDate!.Value
+                .Year);
 
-            DrawGrid(CanvasLineal, Meses, GraficoLineal.Width, GraficoLineal.Height);
-            DrawLines(CanvasLineal, GraficoLineal.Width, GraficoLineal.Height, pesos);
+        Text(Meses, pesos);
 
-            DrawGrid(CanvasColumnas, Meses, GraficoColumnas.Width, GraficoColumnas.Height);
-            DrawRectangle(CanvasColumnas, GraficoColumnas.Width, GraficoColumnas.Height, pesos);
-        });
+        DrawGrid(CanvasLineal, Meses, GraficoLineal.Width, GraficoLineal.Height);
+        DrawLines(CanvasLineal, GraficoLineal.Width, GraficoLineal.Height, pesos);
+
+        DrawGrid(CanvasColumnas, Meses, GraficoColumnas.Width, GraficoColumnas.Height);
+        DrawRectangle(CanvasColumnas, GraficoColumnas.Width, GraficoColumnas.Height, pesos);
+    }
+
+    private void Control_OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        Calendario.SelectedDate = DateTime.Now;
     }
 }

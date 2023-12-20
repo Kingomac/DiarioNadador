@@ -59,4 +59,23 @@ public class SearchQueries
 
         return pesos;
     }
+
+    public Actividad[] GetActividades(int ano, int mes)
+    {
+        var totalDias = DateTime.DaysInMonth(ano, mes);
+        var toret = new Actividad[totalDias];
+
+        for (var dia = 1; dia <= totalDias; dia++)
+        {
+            var key = new DateOnly(ano, mes, dia);
+            DiarioEntrenamiento.TryGetValue(key, out var diaEntrenamiento);
+
+            if (diaEntrenamiento is not null)
+                toret[dia - 1] = diaEntrenamiento.Actividad ?? new Actividad();
+            else
+                toret[dia - 1] = new Actividad();
+        }
+
+        return toret;
+    }
 }

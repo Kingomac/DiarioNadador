@@ -2,6 +2,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using DiarioNadador.Core;
+using DiarioNadador.Core.XML;
 
 namespace DiarioNadador;
 
@@ -48,11 +49,9 @@ public partial class InsertarActividad : Window
         }, RoutingStrategies.Tunnel);
 
         //Escribe el circuito
-        var edCircuito = this.FindControl<TextBox>("edCircuito");
-        edCircuito.AddHandler(PointerPressedEvent, (sender, e) =>
-        {
-            if (e.ClickCount == 1) edCircuito.Text = "";
-        }, RoutingStrategies.Tunnel);
+        //var comboCircuitos = this.FindControl<ComboBox>("edCircuitos");
+        var listaCircuitos = XmlCircuito.XmlToCircuitos();
+        edCircuitos.ItemsSource = listaCircuitos;
     }
 
     public event EventHandler<InsertarActividadEventArgs> Insertar
@@ -65,7 +64,6 @@ public partial class InsertarActividad : Window
     {
         var tiempoStr = this.FindControl<TextBox>("edTiempo").Text;
         var distanciaStr = this.FindControl<TextBox>("edDistancia").Text;
-        var circuitoStr = this.FindControl<TextBox>("edCircuito").Text;
         var notas = this.FindControl<TextBox>("edNotas").Text;
 
         if (!TimeSpan.TryParse(tiempoStr, out var tiempo))
@@ -80,7 +78,7 @@ public partial class InsertarActividad : Window
             return;
         }
 
-        var circuito = new Circuito(distancia, circuitoStr, notas, "");
+        var circuito = edCircuitos.SelectedItem as Circuito;
 
         var newActividad = new Actividad(tiempo, distancia, circuito, notas);
         //actividads.Add(newActividad);

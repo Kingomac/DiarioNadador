@@ -34,6 +34,7 @@ public partial class MainWindow : Window
             nameof(MenuViewListInformeAnual) => new InformeAnualView { DiarioEntrenamiento = _diarioEntrenamiento },
             nameof(MenuViewListGraficaMedidas) => new GraficoMedidasUserControl(_diarioEntrenamiento),
             nameof(MenuViewListCircuitos) => new CircuitosView(),
+            nameof(MenuViewListGraficaActividades) => new GraficoActividadesUserControl(_diarioEntrenamiento),
             _ => MainViewContent.Content
         };
     }

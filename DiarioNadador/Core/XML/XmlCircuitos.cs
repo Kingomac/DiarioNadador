@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -10,6 +11,26 @@ namespace DiarioNadador.Core.XML;
 public class XmlCircuito
 {
     private static readonly string RutaArchivoXml = "circuitos.xml";
+
+    public static void ToXml(List<Circuito> circuito)
+    {
+        try
+        {
+            var serializer = new XmlSerializer(typeof(List<Circuito>));
+
+            using (TextWriter writer = new StreamWriter(RutaArchivoXml))
+            {
+                serializer.Serialize(writer, circuito);
+            }
+
+            Debug.WriteLine($"Archivo XML guardado en: {Path.GetFullPath(RutaArchivoXml)}");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error al crear el archivo XML de circuitos: {ex.Message}");
+            Debug.WriteLine(ex.StackTrace);
+        }
+    }
 
     public static void CircuitosToXml(Circuito nuevoCircuito)
     {
@@ -34,6 +55,7 @@ public class XmlCircuito
             Console.WriteLine($"Error al crear el archivo XML: {ex.Message}");
         }
     }
+
 
     public static List<Circuito> XmlToCircuitos()
     {

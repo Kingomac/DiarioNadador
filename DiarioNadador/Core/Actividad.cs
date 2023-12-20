@@ -29,4 +29,5 @@ public class Actividad
     public int Distancia { get; set; }
     public Circuito Circuito { get; set; }
     public string Notas { get; set; }
+
 }
