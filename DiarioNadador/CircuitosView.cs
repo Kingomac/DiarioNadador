@@ -5,24 +5,19 @@ using Avalonia.Interactivity;
 using Avalonia.Threading;
 using DiarioNadador.Components;
 using DiarioNadador.Core;
+using DiarioNadador.Core.XML;
 
 namespace DiarioNadador;
 
 public partial class CircuitosView : UserControl
 {
-    public ObservableCollection<Circuito> ListaDeCircuitos { get; set; }
-    private ListBox ListBoxCircuitos { get; }
-
     public CircuitosView()
     {
         InitializeComponent();
         ListaDeCircuitos = new ObservableCollection<Circuito>();
 
-        var circuitosDesdeXml = Core.XML.XmlCircuito.XmlToCircuitos();
-        foreach (var circuito in circuitosDesdeXml)
-        {
-            ListaDeCircuitos.Add(circuito);
-        }
+        var circuitosDesdeXml = XmlCircuito.XmlToCircuitos();
+        foreach (var circuito in circuitosDesdeXml) ListaDeCircuitos.Add(circuito);
 
         ListBoxCircuitos = this.FindControl<ListBox>("listBoxCircuitos");
         ListBoxCircuitos.ItemsSource = ListaDeCircuitos;
@@ -59,6 +54,9 @@ public partial class CircuitosView : UserControl
         }, RoutingStrategies.Tunnel);
     }
 
+    public ObservableCollection<Circuito> ListaDeCircuitos { get; set; }
+    private ListBox ListBoxCircuitos { get; }
+
     private void OnGuardarCircuito()
     {
         var distanciaTexto = this.FindControl<TextBox>("DistanciaTextBox").Text;
@@ -78,7 +76,7 @@ public partial class CircuitosView : UserControl
 
         ShowSelfClosingDialog("Circuito guardado exitosamente.", 1500);
         ListaDeCircuitos.Add(nuevoCircuito);
-        Core.XML.XmlCircuito.CircuitosToXml(nuevoCircuito);
+        XmlCircuito.CircuitosToXml(nuevoCircuito);
 
         this.FindControl<TextBox>("DistanciaTextBox").Text = "";
         this.FindControl<TextBox>("LugarTextBox").Text = "";
@@ -92,21 +90,23 @@ public partial class CircuitosView : UserControl
         if (circuitoSeleccionado != null)
         {
             ListaDeCircuitos.Remove(circuitoSeleccionado);
-            Core.XML.XmlCircuito.EliminarCircuitoDelXml(circuitoSeleccionado.Distancia, circuitoSeleccionado.Lugar);
+            XmlCircuito.EliminarCircuitoDelXml(circuitoSeleccionado.Distancia, circuitoSeleccionado.Lugar);
         }
     }
+
     private bool EsDistanciaValida(string distanciaTexto)
     {
         return double.TryParse(distanciaTexto, out _);
     }
+
     private Window GetWindow()
     {
-        return this.VisualRoot as Window;
+        return VisualRoot as Window;
     }
 
     private void ShowSelfClosingDialog(string message, int milliseconds)
     {
-        var dialog = new DialogWindow(message);
+        var dialog = new DialogWindow(message) { Title = "Creado con exito" };
 
         var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(milliseconds) };
         timer.Tick += (sender, args) =>

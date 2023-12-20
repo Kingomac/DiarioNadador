@@ -34,5 +34,8 @@
         <Compile Update="CircuitosView.cs">
             <DependentUpon>CircuitosView.axaml</DependentUpon>
         </Compile>
+        <Compile Update="GraficoActividadesUserControl.axaml.cs">
+            <DependentUpon>GraficoActividadesUserControl.axaml</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>

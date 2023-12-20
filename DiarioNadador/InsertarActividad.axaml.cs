@@ -83,6 +83,7 @@ public partial class InsertarActividad : Window
         var newActividad = new Actividad(tiempo, distancia, circuito, notas);
         //actividads.Add(newActividad);
         OnInsertar(newActividad);
+        OnSalir();
     }
 
     protected virtual void OnInsertar(Actividad newActividad)
