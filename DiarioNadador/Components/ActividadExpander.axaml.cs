@@ -62,7 +62,7 @@ public partial class ActividadExpander : UserControl
         };
         confirmacion.Aceptar += (_, _) =>
         {
-            Console.WriteLine("delete event");
+            Debug.WriteLine("delete event");
             RaiseEvent(new RoutedEventArgs(DeleteEvent));
         };
         var root = this.GetVisualRoot();

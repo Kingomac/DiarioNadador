@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -36,7 +35,6 @@ public class XmlCircuito
     {
         try
         {
-
             var listaCircuitos = XmlToCircuitos();
 
             listaCircuitos.Add(nuevoCircuito);
@@ -48,11 +46,11 @@ public class XmlCircuito
                 serializer.Serialize(writer, listaCircuitos);
             }
 
-            Console.WriteLine($"Archivo XML guardado en: {Path.GetFullPath(RutaArchivoXml)}");
+            Debug.WriteLine($"Archivo XML guardado en: {Path.GetFullPath(RutaArchivoXml)}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al crear el archivo XML: {ex.Message}");
+            Debug.WriteLine($"Error al crear el archivo XML: {ex.Message}");
         }
     }
 
@@ -73,7 +71,7 @@ public class XmlCircuito
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al cargar la lista de circuitos desde el archivo XML: {ex.Message}");
+            Debug.WriteLine($"Error al cargar la lista de circuitos desde el archivo XML: {ex.Message}");
         }
 
         return new List<Circuito>();
@@ -95,16 +93,17 @@ public class XmlCircuito
                 {
                     serializer.Serialize(writer, listaCircuitos);
                 }
-                Console.WriteLine("Circuito eliminado con éxito.");
+
+                Debug.WriteLine("Circuito eliminado con éxito.");
             }
             else
             {
-                Console.WriteLine("Circuito no encontrado para eliminar.");
+                Debug.WriteLine("Circuito no encontrado para eliminar.");
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al eliminar el circuito del archivo XML: {ex.Message}");
+            Debug.WriteLine($"Error al eliminar el circuito del archivo XML: {ex.Message}");
         }
     }
 }

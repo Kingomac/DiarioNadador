@@ -4,24 +4,8 @@
     <option name="projectPerEditor">
       <map>
         <entry key="DiarioNadador/ActividadesView.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/App.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/CalendarCell.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/Components/ActividadExpander.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/Components/ActividadHeader.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/Components/DeleteableExpander.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/Components/DeleteableExpander2.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/Components/LoadingView.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/Components/MedidasControl.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/DiaEntrenamientoWindow.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-<<<<<<< HEAD
-        <entry key="DiarioNadador/InformeMedidasView.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-=======
-        <entry key="DiarioNadador/InformeAnualView.axaml" value="DiarioNadador/DiarioNadador.csproj" />
->>>>>>> master
-        <entry key="DiarioNadador/InsertarActividad.axaml" value="DiarioNadador/DiarioNadador.csproj" />
         <entry key="DiarioNadador/MainWindow.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/MedidasControl.axaml" value="DiarioNadador/DiarioNadador.csproj" />
-        <entry key="DiarioNadador/UserControl1.axaml" value="DiarioNadador/DiarioNadador.csproj" />
       </map>
     </option>
   </component>

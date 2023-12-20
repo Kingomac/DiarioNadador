@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using DiarioNadador.Core;
@@ -68,13 +69,13 @@ public partial class InsertarActividad : Window
 
         if (!TimeSpan.TryParse(tiempoStr, out var tiempo))
         {
-            Console.WriteLine("Error: El tiempo no es un formato válido.");
+            Debug.WriteLine("Error: El tiempo no es un formato válido.");
             return;
         }
 
         if (!int.TryParse(distanciaStr, out var distancia))
         {
-            Console.WriteLine("Error: La distancia no es un número válido.");
+            Debug.WriteLine("Error: La distancia no es un número válido.");
             return;
         }
 

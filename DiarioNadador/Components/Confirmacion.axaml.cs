@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -40,7 +41,7 @@ public partial class Confirmacion : Window
 
     private void AceptarBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        Console.WriteLine("aceptar btn");
+        Debug.WriteLine("aceptar btn");
         Close();
         Aceptar?.Invoke(this, e);
     }

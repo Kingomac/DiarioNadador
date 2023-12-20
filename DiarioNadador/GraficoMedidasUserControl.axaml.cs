@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
@@ -28,8 +29,8 @@ public partial class GraficoMedidasUserControl : UserControl
         get => GetValue(DiarioEntrenamientoProperty);
         set
         {
-            if (value is null) Console.WriteLine("set DiarioEntrenamiento es nulo 1");
-            else Console.WriteLine("set DiarioEntrenamiento no es nulo 1");
+            if (value is null) Debug.WriteLine("set DiarioEntrenamiento es nulo 1");
+            else Debug.WriteLine("set DiarioEntrenamiento no es nulo 1");
             SetValue(DiarioEntrenamientoProperty, value);
         }
     }
@@ -45,7 +46,7 @@ public partial class GraficoMedidasUserControl : UserControl
         var totalDias = DateTime.DaysInMonth(ano, mes);
 
         foreach (var medida in medidas)
-            Console.WriteLine(
+            Debug.WriteLine(
                 $"Peso: {medida.Peso}, Circunferencia: {medida.CircunferenciaAbdominal}, Notas: {medida.Notas}");
 
         if (medidas.Length > 0)
@@ -75,10 +76,10 @@ public partial class GraficoMedidasUserControl : UserControl
             var lineaHorizontal = new Polyline
             {
                 Points =
-            {
-                new Point(0, i * (height / 5)),
-                new Point(width, i * (height / 5))
-            },
+                {
+                    new Point(0, i * (height / 5)),
+                    new Point(width, i * (height / 5))
+                },
                 Stroke = Brushes.LightGray,
                 StrokeThickness = 1
             };
@@ -91,10 +92,10 @@ public partial class GraficoMedidasUserControl : UserControl
             var lineaVertical = new Polyline
             {
                 Points =
-            {
-                new Point(i * (width / dates.Count()), 0),
-                new Point(i * (width / dates.Count()), height)
-            },
+                {
+                    new Point(i * (width / dates.Count()), 0),
+                    new Point(i * (width / dates.Count()), height)
+                },
                 Stroke = Brushes.LightGray,
                 StrokeThickness = 1
             };

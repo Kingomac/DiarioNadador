@@ -26,7 +26,6 @@ public partial class ActividadesView : UserControl
                 var expander = new ActividadExpander { Actividad = value };
                 expander.Delete += (_, _) =>
                 {
-                    Console.WriteLine("aaaaaaaa");
                     if (DiarioEntrenamiento.TryGetValue(DateOnly.FromDateTime(Calendar.SelectedDate.Value),
                             out var diaEntrenamiento)) diaEntrenamiento.Actividades.Remove(value);
                     ActualizarActividadesMedidas();
@@ -77,7 +76,7 @@ public partial class ActividadesView : UserControl
         var winActividades = new InsertarActividad(Calendar.SelectedDate);
         winActividades.Insertar += (_, args) =>
         {
-            Console.WriteLine("InsertarActividad");
+            Debug.WriteLine("InsertarActividad");
             if (DiarioEntrenamiento.TryGetValue(args.Fecha, out var diaEntrenamiento))
                 diaEntrenamiento.Actividades.Add(args.Actividad);
             else

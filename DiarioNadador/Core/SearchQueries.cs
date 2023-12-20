@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace DiarioNadador.Core;
 
@@ -23,10 +24,10 @@ public class SearchQueries
         for (var dia = 1; dia <= totalDias; dia++)
         {
             var key = new DateOnly(ano, mes, dia);
-            if (DiarioEntrenamiento is null) Console.WriteLine("DiarioEntrenamiento es nulo");
-            else Console.WriteLine("DiarioEntrenamiento no es nulo");
+            if (DiarioEntrenamiento is null) Debug.WriteLine("DiarioEntrenamiento es nulo");
+            else Debug.WriteLine("DiarioEntrenamiento no es nulo");
             DiarioEntrenamiento.TryGetValue(key, out var diaEntrenamiento);
-            Console.WriteLine(diaEntrenamiento);
+            Debug.WriteLine(diaEntrenamiento);
             if (diaEntrenamiento is not null)
                 toret[dia - 1] = diaEntrenamiento.Medidas ?? Medidas.Default;
             else

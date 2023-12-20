@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
@@ -28,8 +29,8 @@ public partial class GraficoActividadesUserControl : UserControl
         get => GetValue(DiarioEntrenamientoProperty);
         set
         {
-            if (value is null) Console.WriteLine("set DiarioEntrenamiento es nulo 1");
-            else Console.WriteLine("set DiarioEntrenamiento no es nulo 1");
+            if (value is null) Debug.WriteLine("set DiarioEntrenamiento es nulo 1");
+            else Debug.WriteLine("set DiarioEntrenamiento no es nulo 1");
             SetValue(DiarioEntrenamientoProperty, value);
         }
     }
@@ -43,7 +44,7 @@ public partial class GraficoActividadesUserControl : UserControl
         var totalDias = DateTime.DaysInMonth(ano, mes);
 
         foreach (var actividad in actividades)
-            Console.WriteLine(
+            Debug.WriteLine(
                 $"Tiempo: {actividad.TiempoEmpleado}, Distancia: {actividad.Distancia}, Notas: {actividad.Notas}");
 
         if (actividades.Length > 0)
@@ -63,7 +64,6 @@ public partial class GraficoActividadesUserControl : UserControl
     }
 
 
-
     private void DibujarEjes(Canvas canvas, IEnumerable<string> dates, double width, double height)
     {
         // Dibujar cuadrícula de fondo
@@ -73,10 +73,10 @@ public partial class GraficoActividadesUserControl : UserControl
             var lineaHorizontal = new Polyline
             {
                 Points =
-            {
-                new Point(0, i * (height / 5)),
-                new Point(width, i * (height / 5))
-            },
+                {
+                    new Point(0, i * (height / 5)),
+                    new Point(width, i * (height / 5))
+                },
                 Stroke = Brushes.LightGray,
                 StrokeThickness = 1
             };
@@ -89,10 +89,10 @@ public partial class GraficoActividadesUserControl : UserControl
             var lineaVertical = new Polyline
             {
                 Points =
-            {
-                new Point(i * (width / dates.Count()), 0),
-                new Point(i * (width / dates.Count()), height)
-            },
+                {
+                    new Point(i * (width / dates.Count()), 0),
+                    new Point(i * (width / dates.Count()), height)
+                },
                 Stroke = Brushes.LightGray,
                 StrokeThickness = 1
             };
