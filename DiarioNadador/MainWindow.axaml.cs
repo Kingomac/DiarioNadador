@@ -36,7 +36,4 @@ public partial class MainWindow : Window
             _ => MainViewContent.Content
         };
     }
-    
-    
-
 }
