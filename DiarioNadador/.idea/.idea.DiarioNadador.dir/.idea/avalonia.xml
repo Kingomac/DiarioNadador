@@ -10,6 +10,7 @@
         <entry key="Components/Confirmacion.axaml" value="DiarioNadador.csproj" />
         <entry key="Components/Dialog.axaml" value="DiarioNadador.csproj" />
         <entry key="Components/GraficoMedidasUserControl.axaml" value="DiarioNadador.csproj" />
+        <entry key="Components/MedidasControl.axaml" value="DiarioNadador.csproj" />
         <entry key="GraficoMedidasUserControl.axaml" value="DiarioNadador.csproj" />
         <entry key="InformeAnualView.axaml" value="DiarioNadador.csproj" />
         <entry key="InsertarActividad.axaml" value="DiarioNadador.csproj" />

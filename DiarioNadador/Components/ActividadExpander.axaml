@@ -68,12 +68,12 @@
                         </ToolTip.Tip>
                         <PathIcon Data="{StaticResource IconMapaCircuito}" />
                     </Button>
-                    <Button>
+                    <!--<Button>
                         <ToolTip.Tip>
                             <TextBlock Text="Ver detalles del circuito" />
                         </ToolTip.Tip>
                         <PathIcon Data="{StaticResource IconVentanaExterna}" />
-                    </Button>
+                    </Button>-->
                 </StackPanel>
             </Panel>
         </StackPanel>
