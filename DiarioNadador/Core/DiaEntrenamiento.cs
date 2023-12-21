@@ -19,5 +19,4 @@ public class DiaEntrenamiento
 
     public List<Actividad> Actividades { get; set; }
     public Medidas? Medidas { get; set; }
-    public Actividad Actividad { get; set; }
 }

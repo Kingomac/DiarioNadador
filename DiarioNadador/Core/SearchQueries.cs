@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace DiarioNadador.Core;
 
@@ -61,20 +62,45 @@ public class SearchQueries
         return pesos;
     }
 
-    public Actividad[] GetActividades(int ano, int mes)
+    public double[] GetDistanciaActividades(int ano, int mes)
     {
         var totalDias = DateTime.DaysInMonth(ano, mes);
-        var toret = new Actividad[totalDias];
+        var toret = new double[totalDias]; 
 
         for (var dia = 1; dia <= totalDias; dia++)
         {
             var key = new DateOnly(ano, mes, dia);
             DiarioEntrenamiento.TryGetValue(key, out var diaEntrenamiento);
-
             if (diaEntrenamiento is not null)
-                toret[dia - 1] = diaEntrenamiento.Actividad ?? new Actividad();
+            {
+
+                toret[dia - 1] = diaEntrenamiento.Actividades.Sum(i => i.Distancia);
+
+            }
             else
-                toret[dia - 1] = new Actividad();
+                toret[dia - 1] = 0.0;
+        }
+
+        return toret;
+    }
+    
+    public double[] GetMinutosActividades(int ano, int mes)
+    {
+        var totalDias = DateTime.DaysInMonth(ano, mes);
+        var toret = new double[totalDias]; 
+
+        for (var dia = 1; dia <= totalDias; dia++)
+        {
+            var key = new DateOnly(ano, mes, dia);
+            DiarioEntrenamiento.TryGetValue(key, out var diaEntrenamiento);
+            if (diaEntrenamiento is not null)
+            {
+
+                toret[dia - 1] = diaEntrenamiento.Actividades.Sum(i => i.TiempoEmpleado.TotalMinutes);
+
+            }
+            else
+                toret[dia - 1] = 0.0;
         }
 
         return toret;

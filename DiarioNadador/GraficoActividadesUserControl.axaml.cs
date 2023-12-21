@@ -40,14 +40,16 @@ public partial class GraficoActividadesUserControl : UserControl
     {
         var ano = Calendar.SelectedDate.Value.Year;
         var mes = Calendar.SelectedDate.Value.Month;
-        var actividades = new SearchQueries { DiarioEntrenamiento = DiarioEntrenamiento }.GetActividades(ano, mes);
+        var actividades = new SearchQueries { DiarioEntrenamiento = DiarioEntrenamiento };
+        var distancias = actividades.GetDistanciaActividades(ano, mes);
+        var tiempos = actividades.GetMinutosActividades(ano, mes);
         var totalDias = DateTime.DaysInMonth(ano, mes);
 
-        foreach (var actividad in actividades)
-            Debug.WriteLine(
-                $"Tiempo: {actividad.TiempoEmpleado}, Distancia: {actividad.Distancia}, Notas: {actividad.Notas}");
+        /*foreach (var actividad in actividades)
+            Console.WriteLine(
+                $"Tiempo: {actividad.TiempoEmpleado}, Distancia: {actividad.Distancia}, Notas: {actividad.Notas}");*/
 
-        if (actividades.Length > 0)
+        if (distancias.Length > 0 && tiempos.Length > 0)
         {
             chartMinutos.Children.Clear();
             chartDistancia.Children.Clear();
@@ -55,11 +57,11 @@ public partial class GraficoActividadesUserControl : UserControl
 
             // Dibujar líneas en el chartMinutos
             DibujarEjes(chartMinutos, dates, chartMinutos.Width, chartMinutos.Height);
-            DibujarLineas(chartMinutos, actividades.Select(a => a.TiempoEmpleado.TotalMinutes));
+            DibujarLineas(chartMinutos, tiempos);
 
             // Dibujar líneas en el chartDistancia
             DibujarEjes(chartDistancia, dates, chartDistancia.Width, chartDistancia.Height);
-            DibujarLineas(chartDistancia, actividades.Select(a => (double)a.Distancia));
+            DibujarLineas(chartDistancia, distancias);
         }
     }
 
